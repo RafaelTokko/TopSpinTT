@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+main {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.texto {
+    
+    padding: 100px 0 10px 0;
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 28px;
+    font-weight: 340;
+    font-style: normal;
+    
+}
+
+
+
+
+
+.div-login-cadastro {
+
+}
+
+.tela-login-cadastro {
+    display: flex;
+    justify-content: center;
+    width: 50vh;
+    height: 40vh;
+    background-color: rgba(10, 10, 10, 0.8);;
+    border-radius: 8px;
+}
+
+.formulario {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 0px 30px 10px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.tela-login-cadastro .formulario p {
+    font-family: "Raleway";
+    font-size: 15px;
+    font-weight: 500;
+    color: white;
+
+    margin-top: 20px;
+}
+.tela-login-cadastro .formulario input{
+    margin-top: 2px;
+    width: 100%;
+    height: 35px;
+    font-size: 13px;
+    border: solid 1px #636262;
+    border-radius: 4px;
+    padding: 0px 8px;
+    box-sizing: border-box;
+    outline: none;
+    transition: ease-in 0.2s;
+}
+
+.tela-login-cadastro .formulario input:focus {
+    border: solid 1px blue;
+}
+
+.tela-login-cadastro .formulario button{
+    align-self: center;
+    color: #fff;
+    font-family: "Raleway", sans-serif;
+    font-weight: 550;
+    font-size: 17px;
+    width: 100%;
+    height: 35px;
+    border-radius: 5px;
+    outline: none;
+    margin-top: 20px;
+    background-color: #5dac13;
+    border: 0;
+    transition: ease-in 0.2s;
+}
+
+.tela-login-cadastro .formulario button:hover{
+    background-color: #6fce17;
+}
+
+.tela-login-cadastro .formulario button:active {
+    color: #a5a5a5;
+    background-color: #549c11;
+    transition: ease-out 0s;
+
+}
+.semconta, .semconta a{
+    font-family: "Raleway";
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    color: white;
+}
+
+.semconta a {
+    color: #1d1d1d;
+}
+
+.semconta a:hover {
+    color: ;
+}

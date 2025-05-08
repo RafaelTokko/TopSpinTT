@@ -1,8 +1,7 @@
-/* General Reset */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 * {
     margin: 0;
     padding: 0;
-    text-decoration: none;
 }
 
 header {
@@ -30,7 +29,8 @@ nav ul li {
 }
 
 nav ul li a {
-    font-size: 18px;
+    font-size: 17px;
+    font-weight: 500;
     color: white;
     text-decoration: none;
     padding: 15px 30px;
@@ -50,7 +50,8 @@ nav .navbar li a:hover  {
 nav .login-cadastro ul li a {
     padding: 10px 15px;
     margin: 0;
-    font-size: 17px;
+    font-size: 16px;
+    font-weight: 350;
     transition: all 0.15s ease;
 }
 
