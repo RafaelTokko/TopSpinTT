@@ -6,6 +6,64 @@
 }
 
 header {
-    background-color: #333;
-    padding: 10px 0;
+    background-color: #791212;
+    padding: 5px 0;
+    box-shadow: inset 0px -5px 1px #701111;
 }
+nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+.logo img {
+    height: 7.5vh;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    font-size: 18px;
+    color: white;
+    text-decoration: none;
+    padding: 15px 30px;
+    font-family: "League Spartan", sans-serif;
+    border-radius: 3px;
+    margin: 0 10px;
+    transition: color 0.3s ease
+}
+
+
+nav .navbar li a:hover  {
+    color: #b4b4b4;
+    
+}
+
+
+nav .login-cadastro ul li a {
+    padding: 10px 15px;
+    margin: 0;
+    font-size: 17px;
+    transition: all 0.15s ease;
+}
+
+nav .login-cadastro ul li .entrar:hover {
+    background-color: #ac1b1b;
+}
+
+nav .login-cadastro ul li .cadastrar {
+    border: solid 0.28ch #ac1b1b;
+}
+
+nav .login-cadastro ul li .cadastrar:hover {
+    background-color: #ac1b1b;
+}
+
+
