@@ -5,39 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Entre no TopSpinTT</title>
     <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/cadastro.css">
     <link rel="shortcut icon" type="imagex/png" href="./assets/logo/icone.png">
 </head>
 <body>
-    <header>
-
-
-        <nav>
-            <div class="logo">
-                <a href="index.html"><img src="assets/logo/logo.png" alt="Logo"></a>
-            </div>
-                <div class="navbar">
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="">Posts</a></li>
-                        <li><a href="">Sobre mim</a></li>
-                        
-                    </ul>
-                </div>
-                <div class="login-cadastro">
-                    <ul>
-                        <li><a class="entrar" href="login.html">Entrar</a></li>
-                        <li><a class="cadastrar" href="cadastro.html">Cadastre-se</a></li>
-                    </ul>
-                </div>
-        </nav>
-    </header>
-    
     <main>
-
+        <div class="tela-imagem">
+            <div class="logored">
+                <a href="index.html"><img src="assets/logo/logored.png" alt="Logo"></a>
+            </div>
+        </div>
+        <div class="tela-cadastro">
+            <div class="painel-cadastro">
+                <h1>Crie sua conta na TopSpinTT!</h1>
+                <label for="ipt_nome">Nome completo*</label>
+                <input type="text" id="ipt_nome" placeholder="Nome">
+                <label for="ipt_usuario">Nome de Usuário*</label>
+                <input type="text" id="ipt_usuario" placeholder="Usuário">
+                <label for="ipt_email">Email*</label>
+                <input type="text" id="ipt_email" placeholder="exemplo@exemplo.com">
+                <label for="ipt_senha">Insira a Senha*</label>
+                <input type="text" id="ipt_senha" placeholder="Senha">
+                <p>A senha deve conter no mínimo 8 caractéres, uma letra maíuscula e um número.</p>
+                <label for="ipt_senhaconfirm">Confirme a sua senha*</label>
+                <input type="text" id="ipt_senhaconfirm" placeholder="Confirmação da Senha">
+                <button onclick="Cadastrar()">Criar conta</button>
+                <div class="contaexistente">Já possui conta? <a href="login.html">Entre aqui</a></div>
+            </div>
+        </div>
+        <div class="voltar"><a href="index.html">Voltar<span class="icone-voltar"></span></a></div>
     </main>
-
-    <footer>
-
-    </footer>
 </body>
 </html>

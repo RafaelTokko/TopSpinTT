@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+main {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+
+.tela-imagem {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    background:
+linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)),
+url(../assets/jdir0e7waaduoxfo4mie.jpg) no-repeat;
+    
+background-size: cover;
+background-position: 65% center;
+}
+
+.logored {
+    justify-self: flex-end;
+
+}
+
+.logored a img{
+    width: 60px;
+    margin: 20px 30px 0 0;
+}
+.tela-cadastro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    box-shadow: -2px 0 10px 2px #000;
+}
+
+.painel-cadastro {
+    display: flex;
+    justify-self: center;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 60%;
+    margin-top: 50px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+}
+
+.painel-cadastro h1 {
+    font-size: 21px;
+    margin-bottom: 35px;
+}
+
+.painel-cadastro label {
+    font-size: 15px;
+}
+
+.painel-cadastro input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    outline: 0;
+    margin: 5px 0 20px 0;
+}
+
+.painel-cadastro input:focus {
+    border: solid 2px #292929;
+}
+
+.painel-cadastro #ipt_senha {
+    margin: 5px 0 2px 0;
+}
+
+.painel-cadastro p {
+    margin: 0 0 20px 0;
+    font-size: 12px;
+}
+
+.painel-cadastro button {
+    background-color: #890a0a;
+    color: #fff;
+    width: 100%;
+    margin-top: 30px;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    font-weight: 500;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+.painel-cadastro button:hover {
+  background-color: #980b0b;
+}
+
+.painel-cadastro button:active {
+  transform: scale(0.98);
+  background-color: #8b1010;
+
+}
+.voltar {
+    position: fixed;
+    right: 0;
+    margin: 25px;
+    font-family: 'Outfit', sans-serif;
+}
+
+.voltar a {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+.voltar a:hover {
+    color: #6e6e6e;
+}
+
+.icone-voltar {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url('../assets/iconevoltar.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-left: 8px;
+}
+
+.contaexistente {
+    font-size: 15px;
+    margin-top: 2px;
+}
+.contaexistente a {
+    color: #425ec2;
+    transition: all 0.3s ease;
+
+}
+.contaexistente a:hover {
+    color: #6283fb;
+}
+
+
