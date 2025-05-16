@@ -43,16 +43,17 @@
                         <input type="text" id="ipt_email">
                         <p>Senha</p>
                         <input type="password" id="ipt_senha">
-                        <button>Entrar</button>
+                        <button onclick="login()">Entrar</button>
                         <div class="semconta">Não tem uma conta? <a href="cadastro.html">Crie uma aqui</a></div>
                     </div>
                 </div>
             </div>
             <footer>
                 <ul>
-                    <li>Home</li>
-                    <li></li>
-                    <li></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="posts.html">Posts</a></li>
+                    <li><a href="about.html">Sobre mim</a></li>
+                    <li><a href="cadastro.html">Cadastre-se</a></li>
                 </ul>
             </footer>
         </div>
@@ -60,4 +61,17 @@
 
 
 </body>
+<script>
+
+    function login() {
+        emailipt = ipt_email.value;
+        senhaipt = ipt_senha.value;
+        if (emailipt == "" || senhaipt == "") {
+            alert("Preencha todos os campos!");
+        } else {
+            window.location.href = "index.html";
+        }
+    }
+
+</script>
 </html>

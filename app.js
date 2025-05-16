@@ -17,10 +17,8 @@ var app = express();
 
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
-var avisosRouter = require("./src/routes/avisos");
-var registrosRouter = require("./src/routes/registros");
-var datacenterRouter = require("./2src/routes/datacenter");
-var empresasRouter = require("./src/routes/empresas");
+var medidasRouter = require("./src/routes/medidas");
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

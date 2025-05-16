@@ -92,7 +92,7 @@ main {
 }
 
 .tela-login-cadastro .formulario input:focus {
-    border: solid 2px #75afff;
+    border: solid 2px #baffc3;
 }
 
 .tela-login-cadastro .formulario button{
@@ -141,4 +141,19 @@ main {
 
 .semconta a:hover {
     color: #6c8cff;
+}
+
+footer ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    width: 70vh;
+    margin-top: 75px;
+}
+
+footer ul li a {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+    color: #c1c1c1;
 }
