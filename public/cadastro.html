@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/cadastro.css">
     <link rel="shortcut icon" type="imagex/png" href="./assets/logo/icone.png">
+    <script src="./script/validacao.js"></script>
+    <script src="./script/sessao.js"></script>
 </head>
-<body>
+<body onload="validarSessaoLogin()">
     <main>
         <div class="tela-imagem">
             <div class="logored">
@@ -18,22 +20,103 @@
         <div class="tela-cadastro">
             <div class="painel-cadastro">
                 <h1>Crie sua conta na TopSpinTT!</h1>
-                <label for="ipt_nome">Nome completo*</label>
+                <label for="ipt_nome" id="lbl_nome">Nome completo*</label>
                 <input type="text" id="ipt_nome" placeholder="Nome">
-                <label for="ipt_usuario">Nome de Usuário*</label>
+                <label for="ipt_usuario" id="lbl_usuario">Nome de Usuário*</label>
                 <input type="text" id="ipt_usuario" placeholder="Usuário">
-                <label for="ipt_email">Email*</label>
-                <input type="text" id="ipt_email" placeholder="exemplo@exemplo.com">
-                <label for="ipt_senha">Insira a Senha*</label>
-                <input type="text" id="ipt_senha" placeholder="Senha">
-                <p>A senha deve conter no mínimo 8 caractéres, uma letra maíuscula e um número.</p>
-                <label for="ipt_senhaconfirm">Confirme a sua senha*</label>
-                <input type="text" id="ipt_senhaconfirm" placeholder="Confirmação da Senha">
-                <button onclick="Cadastrar()">Criar conta</button>
-                <div class="contaexistente">Já possui conta? <a href="login.html">Entre aqui</a></div>
+                <label for="ipt_email" id="lbl_email">Email*</label>
+                <input type="email" id="ipt_email" placeholder="exemplo@exemplo.com">
+                <label for="ipt_dataNasc" id="lbl_dataNasc">Data de Nascimento*</label>
+                <input type="date" id="ipt_dataNasc">
+                <p id="dataerro"></p>
+                <label for="ipt_senha" id="lbl_senha">Insira a Senha*</label>
+                <input type="password" id="ipt_senha" placeholder="Senha">
+                <p>A senha deve conter no mínimo 8 caractéres e no máximo 32.</p>
+                <label for="ipt_senhaconfirm" id="lbl_senhaconfirm">Confirme a sua senha*</label>
+                <input type="password" id="ipt_senhaconfirm" placeholder="Confirmação da Senha">
+                <p id="senhaerro"></p>
+                <div id="botao">
+                    <button onclick="cadastrar()">Criar conta</button>
+                    <div class="contaexistente">Já possui conta? <a href="login.html">Entre aqui</a></div>
+                </div>
             </div>
         </div>
-        <div class="voltar"><a href="index.html">Voltar<span class="icone-voltar"></span></a></div>g
+        <div class="voltar"><a href="index.html">Voltar<span class="icone-voltar"></span></a></div>
     </main>
 </body>
+<script>
+    function cadastrar() {
+      // aguardar();
+  
+      //Recupere o valor da nova input pelo nome do id
+      // Agora vá para o método fetch logo abaixo
+      var nomeipt = ipt_nome.value;
+      var apelidoipt = ipt_usuario.value;
+      var emailipt = ipt_email.value;
+      var senhaipt = ipt_senha.value;
+      var confirmacaoSenhaipt = ipt_senhaconfirm.value;
+      var dataNascipt = ipt_dataNasc.value;
+      console.log(dataNascipt);
+
+
+      var erro = 0;
+      dataerro.innerHTML = "";
+      senhaerro.innerHTML = "";
+      document.querySelectorAll(".erro").forEach(el => el.classList.remove("erro"));
+      
+      // Verificando se há algum campo em branco
+      if (!validarCampos(ipt_nome, lbl_nome)) erro = true;
+      if (!validarCampos(ipt_usuario, lbl_usuario)) erro = true;
+      if (!validarCampos(ipt_email, lbl_email)) erro = true;
+      if (!validarCampos(ipt_senha, lbl_senha)) erro = true;
+      if (!validarCampos(ipt_senhaconfirm, lbl_senhaconfirm)) erro = true;
+
+      if (!validarData(ipt_dataNasc, lbl_dataNasc)) erro = true;
+
+      if (!validarSenha(ipt_senha, lbl_senha, ipt_senhaconfirm, lbl_senhaconfirm)) erro = true;
+
+      if (erro) {
+        console.log("Erro ao cadastrar, validação falhou.");
+        return false;
+      }
+
+      // Enviando o valor da nova input
+      fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          // crie um atributo que recebe o valor recuperado aqui
+          // Agora vá para o arquivo routes/usuario.js
+          nomeServer: nomeipt,
+          apelidoServer: apelidoipt,
+          emailServer: emailipt,
+          dataNascServer: dataNascipt,
+          senhaServer: senhaipt
+        }),
+      })
+        .then(function (resposta) {
+          console.log("resposta: ", resposta);
+  
+          if (resposta.ok) {
+  
+            botao.innerHTML =
+              "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+  
+            setTimeout(() => {
+              window.location = "login.html";
+            }, "2000");
+  
+          } else {
+            throw "Houve um erro ao tentar realizar o cadastro!";
+          }
+        })
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
+  
+      return false;
+    }
+  </script>
 </html>

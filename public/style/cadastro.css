@@ -42,7 +42,7 @@ background-position: 65% center;
     flex-direction: column;
     align-items: flex-start;
     width: 60%;
-    margin-top: 50px;
+    margin-top: 35px;
     font-family: 'Outfit', sans-serif;
     font-size: 1rem;
     letter-spacing: 0.02em;
@@ -69,7 +69,7 @@ background-position: 65% center;
     border: solid 2px #292929;
 }
 
-.painel-cadastro #ipt_senha {
+.painel-cadastro #ipt_senha, .painel-cadastro #ipt_senhaconfirm, .painel-cadastro #ipt_dataNasc {
     margin: 5px 0 2px 0;
 }
 
@@ -77,8 +77,11 @@ background-position: 65% center;
     margin: 0 0 20px 0;
     font-size: 12px;
 }
+#botao {
+    width: 100%;
 
-.painel-cadastro button {
+}
+#botao button {
     background-color: #890a0a;
     color: #fff;
     width: 100%;
@@ -91,8 +94,9 @@ background-position: 65% center;
     border-radius: 3px;
     transition: all 0.3s ease;
 }
-.painel-cadastro button:hover {
+#botao button:hover {
   background-color: #980b0b;
+  cursor: pointer;
 }
 
 .painel-cadastro button:active {
@@ -100,6 +104,7 @@ background-position: 65% center;
   background-color: #8b1010;
 
 }
+
 .voltar {
     position: fixed;
     right: 0;
@@ -116,6 +121,7 @@ background-position: 65% center;
     text-decoration: none;
     transition: all 0.3s ease;
 }
+
 .voltar a:hover {
     color: #6e6e6e;
 }
@@ -134,13 +140,34 @@ background-position: 65% center;
     font-size: 15px;
     margin-top: 2px;
 }
+
 .contaexistente a {
     color: #425ec2;
     transition: all 0.3s ease;
-
 }
+
 .contaexistente a:hover {
     color: #6283fb;
 }
 
+label.erro {
+    color: #ff0000;
+    font-weight: bold;
+}
 
+p.erro {
+    color: #ff0000;
+    font-weight: bold;
+}
+
+input.erro {
+    border: solid 1px #ff0000;
+}
+input.erro::placeholder {
+    color: rgb(255, 0, 0); /* ou qualquer cor: red, blue, #999 etc */
+    opacity: 1;
+  }
+
+input.erro:focus {
+    border: solid 2px #ff0000;
+}

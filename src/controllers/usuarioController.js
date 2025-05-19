@@ -1,5 +1,4 @@
 var usuarioModel = require("../models/usuarioModel");
-var aquarioModel = require("../models/aquarioModel");
 
 function autenticar(req, res) {
     var email = req.body.emailServer;
@@ -23,6 +22,7 @@ function autenticar(req, res) {
                         res.json({
                         id: resultadoAutenticar[0].id,
                         email: resultadoAutenticar[0].email,
+                        apelido: resultadoAutenticar[0].apelido,
                         nome: resultadoAutenticar[0].nome
                         });
 
@@ -48,7 +48,7 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var apelido = req.body.apelidoServer;
     var email = req.body.emailServer;
-    var dataNasc = req.body.emailServer;
+    var dataNasc = req.body.dataNascServer;
     var senha = req.body.senhaServer;
 
     // Faça as validações dos valores

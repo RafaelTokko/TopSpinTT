@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/login.css">
     <link rel="shortcut icon" type="imagex/png" href="./assets/logo/icone.png">
+    <script src="./script/validacao.js"></script>
+    <script src="./script/sessao.js"></script>
 </head>
-<body>
+<body onload="validarSessaoLogin()">
     <header>
 
 
@@ -24,7 +26,7 @@
                         
                     </ul>
                 </div>
-                <div class="login-cadastro">
+                <div id ="usuario" class="login-cadastro">
                     <ul>
                         <li><a class="entrar" href="login.html">Entrar</a></li>
                         <li><a class="cadastrar" href="cadastro.html">Cadastre-se</a></li>
@@ -36,6 +38,14 @@
     <main>
         <div class="fundo-escuro">
             <div class="texto">Entre no TopSpinTT</div>
+            <div class="card-container">
+                <div id="cardSucesso" class="card sucesso">
+                    Login realizado com sucesso!
+                </div>
+                <div id="cardErro" class="card erro">
+                    Usuário ou senha inválidos!
+                </div>
+            </div>
             <div class="div-login-cadastro">
                 <div class="tela-login-cadastro">
                     <div class="formulario">
@@ -45,25 +55,14 @@
                         <input type="password" id="ipt_senha">
                         <button onclick="login()">Entrar</button>
                         <div class="semconta">Não tem uma conta? <a href="cadastro.html">Crie uma aqui</a></div>
-                        <div id="erro"></div>
                     </div>
                 </div>
             </div>
-            <footer>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="posts.html">Posts</a></li>
-                    <li><a href="about.html">Sobre mim</a></li>
-                    <li><a href="cadastro.html">Cadastre-se</a></li>
-                </ul>
-            </footer>
-        </div>
+
     </main>
-
-
 </body>
 <script>
-
+    validarSessao();
     function login() {
         emailipt = ipt_email.value;
         senhaipt = ipt_senha.value;
@@ -90,24 +89,29 @@
 
             if (resposta.ok) {
                 console.log(resposta);
+                document.getElementById("cardSucesso").classList.add("mostrar");
+                document.getElementById("cardErro").classList.remove("mostrar");
 
-                //SALVA VALORES NA SESSÃO
+
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.APELIDO_USUARIO = json.apelido;
                     sessionStorage.ID_USUARIO = json.id;
 
-                    
-                    window.location = "./index.html";
+                    setTimeout(function () {
+                        window.location = "./index.html";
+                    }, 1000); // apenas para exibir o loading
 
                 });
 
             } else {
 
                 console.log("Houve um erro ao tentar realizar o login!");
-
+                document.getElementById("cardErro").classList.add("mostrar");
+                document.getElementById("cardSucesso").classList.remove("mostrar");           
                 resposta.text().then(texto => {
                     console.error(texto);
                     finalizarAguardar(texto);
@@ -119,10 +123,6 @@
         })
 
         return false;
-    }
-
-    function sumirMensagem() {
-        cardErro.style.display = "none"
     }
 </script>
 </html>

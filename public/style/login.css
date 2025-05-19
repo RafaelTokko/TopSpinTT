@@ -20,19 +20,6 @@ main {
     background-size: cover;
 }
 
-.texto {
-    
-    padding: 100px 0 10px 0;
-    font-family: 'Outfit', sans-serif;
-    font-optical-sizing: auto;
-    font-size: 28px;
-    font-weight: 340;
-    font-style: normal;
-    color: #fff;
-    
-}
-
-
 .fundo-escuro {
     display: flex;
     justify-content: flex-start;
@@ -50,11 +37,22 @@ main {
 );
 }
 
+.texto {
+    font-family: 'Outfit', sans-serif;
+    font-optical-sizing: auto;
+    font-size: 28px;
+    font-weight: 340;
+    font-style: normal;
+    color: #fff;
+    margin-top: 80px;
+}
+
 .tela-login-cadastro {
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 50vh;
-    height: 40vh;
+    padding: 20px 0 50px 0;
     background-color: rgba(10, 10, 10, 0.8);
     border-radius: 8px;
 }
@@ -79,7 +77,7 @@ main {
     margin-top: 20px;
 }
 .tela-login-cadastro .formulario input{
-    margin-top: 2px;
+    margin: 2px;
     width: 100%;
     height: 35px;
     font-size: 13px;
@@ -143,17 +141,38 @@ main {
     color: #6c8cff;
 }
 
-footer ul {
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    width: 70vh;
-    margin-top: 75px;
-}
 
-footer ul li a {
+
+  
+
+ .card {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    margin-top: 0;
     font-family: 'Outfit', sans-serif;
-    font-size: 14px;
-    text-decoration: none;
-    color: #c1c1c1;
+    font-weight: bold;
+    text-align: center;
+    align-self: center;
+    margin-bottom: 15px;
+}
+   .card.mostrar {
+    max-height: 200px;
+    opacity: 1;
+    width: 40vh;
+    padding: 18px 0;
+} 
+
+
+  .sucesso {
+    background-color: #d4edda;
+    color: #248e25;
+    border: 1px solid #248e25;
+  }
+
+.erro {
+    background-color: #f8d7da;
+    color: #ff0000;
+    border: 2px solid #ff7e7e;
 }

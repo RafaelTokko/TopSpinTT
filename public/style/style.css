@@ -38,7 +38,7 @@ nav ul li a {
     font-family: 'Outfit', sans-serif;
     border-radius: 3px;
     margin: 0 10px;
-    transition: color 0.3s ease
+    transition: color 0.3s ease;
 }
 
 
@@ -67,5 +67,43 @@ nav .login-cadastro ul li .cadastrar {
 nav .login-cadastro ul li .cadastrar:hover {
     background-color: #ac1b1b;
 }
+
+nav .login-cadastro ul li.user{
+    display: flex;
+    flex-direction: row;
+    font-size: 17px;
+    font-weight: 200;
+    width: 120px;
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    border-radius: 3px;
+    margin: 0 10px;
+}
+nav .login-cadastro ul li p {
+    font-weight: 500;
+}
+
+nav .login-cadastro ul a.sair{
+    font-size: 14px;
+    padding: 3px 6px;
+    margin: 0;
+}
+
+nav .login-cadastro ul a.sair:hover {
+    background-color: #ac1b1b;
+    
+}
+
+.icone-sair {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url('../assets/iconesair.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left: 8px;
+    position: relative;
+    top: 3px; /* ou -1px, vai testando */
+  }
 
 
