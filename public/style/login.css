@@ -40,7 +40,7 @@ main {
 .texto {
     font-family: 'Outfit', sans-serif;
     font-optical-sizing: auto;
-    font-size: 28px;
+    font-size: 40px;
     font-weight: 340;
     font-style: normal;
     color: #fff;
@@ -51,7 +51,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50vh;
+    width: 60vh;
     padding: 20px 0 50px 0;
     background-color: rgba(10, 10, 10, 0.8);
     border-radius: 8px;
@@ -69,18 +69,16 @@ main {
 
 .tela-login-cadastro .formulario p {
     font-family: 'Outfit', sans-serif;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 500;
     color: white;
-    
-
     margin-top: 20px;
 }
 .tela-login-cadastro .formulario input{
     margin: 2px;
     width: 100%;
-    height: 35px;
-    font-size: 13px;
+    height: 40px;
+    font-size: 17px;
     border: solid 1px #636262;
     border-radius: 4px;
     padding: 0px 8px;
@@ -100,7 +98,7 @@ main {
     font-weight: 550;
     font-size: 17px;
     width: 100%;
-    height: 35px;
+    height: 40px;
     border-radius: 5px;
     outline: none;
     margin-top: 30px;
@@ -126,7 +124,7 @@ main {
 }
 .semconta, .semconta a{
     font-family: 'Outfit', sans-serif;
-    font-size: 13px;
+    font-size: 17px;
     font-weight: 500;
     margin-top: 5px;
     color: #dedede;

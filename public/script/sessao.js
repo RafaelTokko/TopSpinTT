@@ -20,7 +20,11 @@ function validarSessao() {
         <li><a class="sair" href="#" onclick="sair()">Sair<span class="icone-sair"></span></a></li>
       </ul>
     `;
-        
+    }
+    if (window.location.href.includes("login.html") || window.location.href.includes("cadastro.html")) {
+            return;
+    } else {
+        saveRedirect();
     }
 }
 
@@ -67,4 +71,9 @@ function validarSessaoPesquisa() {
 function sair() {
   sessionStorage.clear();
   window.location.reload();
+}
+
+function saveRedirect() {
+      sessionStorage.setItem("redirectAfterLogin", window.location.href);
+      console.log(sessionStorage.getItem("redirectAfterLogin"));
 }

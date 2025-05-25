@@ -64,9 +64,12 @@
 </body>
 <script>
     validarSessaoLogin()
+    const redirectURL = sessionStorage.getItem("redirectAfterLogin") || "index.html";
+    console.log("REDIRECT URL: ", redirectURL);
     function login() {
         emailipt = ipt_email.value;
         senhaipt = ipt_senha.value;
+        
         if (emailipt == "" || senhaipt == "") {
             alert("Preencha todos os campos!");
         } else {
@@ -102,7 +105,7 @@
                     sessionStorage.ID_USUARIO = json.id;
 
                     setTimeout(function () {
-                        window.location = "./index.html";
+                        window.location.href = redirectURL;
                     }, 1000); // apenas para exibir o loading
 
                 });

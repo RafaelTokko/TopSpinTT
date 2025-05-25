@@ -54,14 +54,15 @@ background-position: 65% center;
 }
 
 .painel-cadastro label {
-    font-size: 15px;
+    font-size: 16px;
 }
 
 .painel-cadastro input {
     width: 100%;
-    padding: 10px;
+    padding: 13px 10px;
     box-sizing: border-box;
     outline: 0;
+    font-size: 15px;
     margin: 5px 0 20px 0;
 }
 
@@ -75,7 +76,7 @@ background-position: 65% center;
 
 .painel-cadastro p {
     margin: 0 0 20px 0;
-    font-size: 12px;
+    font-size: 14px;
 }
 #botao {
     width: 100%;
