@@ -34,9 +34,9 @@ body {
 
 .texto-banner button {
     margin-top: 20px;
-    height: 50px;
-    width: 150px;
-    font-size: 16px;
+    height: 55px;
+    width: 200px;
+    font-size: 18px;
     border-radius: 5px;
     color: #e8e8e8;
     background-color: #ac1b1b;
@@ -153,9 +153,9 @@ body {
 }
 .estatisticas-banner button {
     margin-top: 20px;
-    height: 50px;
-    width: 150px;
-    font-size: 16px;
+    height: 55px;
+    width: 200px;
+    font-size: 18px;
     border-radius: 5px;
     color: #e8e8e8;
     background-color: #ac1b1b;
