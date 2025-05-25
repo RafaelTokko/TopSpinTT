@@ -10,23 +10,24 @@
     <script src="./script/validacao.js"></script>
     <script src="./script/sessao.js"></script>
 </head>
-<body onload="validarSessaoLogin()">
+<body>
     <header>
 
 
-        <nav>
+                <nav>
             <div class="logo">
                 <a href="index.html"><img src="assets/logo/logo.png" alt="Logo"></a>
             </div>
                 <div class="navbar">
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="">Posts</a></li>
-                        <li><a href="">Sobre mim</a></li>
+                        <li><a href="./index.html">Home</a></li>
+                        <li><a href="./posts.html">Posts</a></li>
+                        <li><a href="./sobremim.html">Sobre mim</a></li>
+                        <li><a href="./estatisticas.html">Estatísticas</a></li>
                         
                     </ul>
                 </div>
-                <div id ="usuario" class="login-cadastro">
+                <div id="usuario" class="login-cadastro">
                     <ul>
                         <li><a class="entrar" href="login.html">Entrar</a></li>
                         <li><a class="cadastrar" href="cadastro.html">Cadastre-se</a></li>
@@ -62,7 +63,7 @@
     </main>
 </body>
 <script>
-    validarSessao();
+    validarSessaoLogin()
     function login() {
         emailipt = ipt_email.value;
         senhaipt = ipt_senha.value;
@@ -98,7 +99,6 @@
                     console.log(JSON.stringify(json));
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.APELIDO_USUARIO = json.apelido;
                     sessionStorage.ID_USUARIO = json.id;
 
                     setTimeout(function () {
@@ -114,7 +114,6 @@
                 document.getElementById("cardSucesso").classList.remove("mostrar");           
                 resposta.text().then(texto => {
                     console.error(texto);
-                    finalizarAguardar(texto);
                 });
             }
 

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre no TopSpinTT</title>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/pesquisa.css">
+    <link rel="shortcut icon" type="imagex/png" href="./assets/logo/icone.png">
+    <script src="./script/sessao.js"></script>
+</head>
+<body>
+    <header>
+
+
+        <nav>
+            <div class="logo">
+                <a href="index.html"><img src="assets/logo/logo.png" alt="Logo"></a>
+            </div>
+                <div class="navbar">
+                    <ul>
+                        <li><a href="./index.html">Home</a></li>
+                        <li><a href="./posts.html">Posts</a></li>
+                        <li><a href="./sobremim.html">Sobre mim</a></li>
+                        <li><a href="./estatisticas.html">Estatísticas</a></li>
+                        
+                    </ul>
+                </div>
+                <div id="usuario" class="login-cadastro">
+                    <ul>
+                        <li><a class="entrar" href="login.html">Entrar</a></li>
+                        <li><a class="cadastrar" href="cadastro.html">Cadastre-se</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        
+    <main>
+        <div class="pesquisa" id="pesquisa">
+            <div class="tela-pesquisa">
+                <div class="conteudo-pesquisa">
+                    <h2>Se identifica com o Tênis de Mesa? Descubra e compartilhe seu perfil no TopSpinTT</h2>
+                    <div class="pergunta-pesquisa">
+                        <p>1. Qual é o seu estado?</p>
+                        <select name="estado" id="ipt_estado">
+                            <option value="">Selecione seu estado</option>
+                            <option value="1">Acre</option>
+                            <option value="2">Alagoas</option>
+                            <option value="3">Amazonas</option>
+                            <option value="4">Bahia</option>
+                            <option value="5">Ceará</option>
+                            <option value="6">Distrito Federal</option>
+                            <option value="7">Espírito Santo</option>
+                            <option value="8">Goiás</option>
+                            <option value="9">Maranhão</option>
+                            <option value="10">Mato Grosso</option>
+                            <option value="11">Mato Grosso do Sul</option>
+                            <option value="12">Minas Gerais</option>
+                            <option value="13">Pará</option>
+                            <option value="14">Paraíba</option>
+                            <option value="15">Paraná</option>
+                            <option value="16">Pernambuco</option>
+                            <option value="17">Piauí</option>
+                            <option value="18">Rio de Janeiro</option>
+                            <option value="19">Rio Grande do Norte</option>
+                            <option value="20">Rio Grande do Sul</option>
+                            <option value="21">Rondônia</option>
+                            <option value="22">Roraima</option>
+                            <option value="23">Santa Catarina</option>
+                            <option value="24">São Paulo</option>
+                            <option value="25">Sergipe</option>
+                            <option value="26">Tocantins</option>
+                        </select>
+                    </div>
+                    <div class="pergunta-pesquisa">
+                        <p>2. Qual é o seu principal interesse no tênis de mesa?</p>
+                        <label>
+                            <input type="radio" name="interesse" value="Lazer">
+                            Lazer
+                        </label>
+                        <label>
+                            <input type="radio" name="interesse" value="Competição">
+                            Competição
+                        </label>
+                        <label>
+                            <input type="radio" name="interesse" value="Socialização" >
+                            Socialização
+                        </label>
+                        <label>
+                            <input type="radio" name="interesse" value="Condicionamento físico">
+                            Condicionamento físico
+                        </label>
+                    </div>
+                    <div class="pergunta-pesquisa">
+                        <p>3. Como você classificaria seu nível no jogo?</p>
+                        <label>
+                            <input type="radio" name="nivel" value="Iniciante">
+                            Iniciante
+                        </label>
+                        <label>
+                            <input type="radio" name="nivel" value="Intermediário">
+                            intermediário
+                        </label>
+                        <label>
+                            <input type="radio" name="nivel" value="Avançado">
+                            Avançado
+                        </label>
+                        <label>
+                            <input type="radio" name="nivel" value="Profissional">
+                            Profissional
+                        </label>
+                    </div>
+                    <div class="pergunta-pesquisa">
+                        <p>4. Há quanto tempo você joga?</p>
+                        <label>
+                            <input type="radio" name="tempo" value="Menos de 1 ano">
+                            Menos de 1 ano
+                        </label>
+                        <label>
+                            <input type="radio" name="tempo" value="1 a 3 anos">
+                            1 a 5 anos
+                        </label>
+                        <label>
+                            <input type="radio" name="tempo" value="3 a 5 anos">
+                            5 a 10 anos
+                        </label>
+                        <label>
+                            <input type="radio" name="tempo" value="Mais de 5 anos">
+                            Mais de 10 anos
+                        </label>
+                    </div>
+                    <div class="pergunta-pesquisa">
+                        <p>5. Qual é a sua empunhadura?</p>
+                        <label>
+                            <input type="radio" name="empunhadura" value="Clássico">
+                            Clássico
+                        </label>
+                        <label>
+                            <input type="radio" name="empunhadura" value="Caneta">
+                            Caneta
+                        </label>
+                        <label>
+                            <input type="radio" name="empunhadura" value="Classineta">
+                            Classineta
+                        </label>
+                    </div>
+                    <div class="pergunta-pesquisa">
+                        <p>6. Que tipo de jogo você prefere?</p>
+                        <label>
+                            <input type="radio" name="tipo_jogo" value="Ofensivo">
+                            Ofensivo
+                        </label>
+                        <label>
+                            <input type="radio" name="tipo_jogo" value="Defensivo">
+                            Defensivo
+                        </label>
+                        <label>
+                            <input type="radio" name="tipo_jogo" value="Allround">
+                            Allround
+                        </label>
+                    </div>
+                    <div class="pergunta-pesquisa">
+                        <p>7. Com que frequência você joga?</p>
+                        <label>
+                            <input type="radio" name="frequencia" value="Menos de uma vez por semana">
+                            Menos de uma vez por semana
+                        </label>
+                        <label>
+                            <input type="radio" name="frequencia" value="Uma vez por semana">
+                            Uma vez por semana
+                        </label>
+                        <label>
+                            <input type="radio" name="frequencia" value="Duas a três vezes por semana">
+                            Duas a três vezes por semana
+                        </label>
+                        <label>
+                            <input type="radio" name="frequencia" value="Mais de três vezes por semana">
+                            Mais de três vezes por semana
+                        </label>
+                    </div>
+                    <div class="pergunta-pesquisa" id="pergunta-pesquisa">
+                        <p>8. Qual é o conteúdo que você tem mais interesse?</p>
+                        <label>
+                            <input type="radio" name="conteudo" id="ipt_conteudo" value="Regras">
+                            Regras
+                        </label>
+                        <label>
+                            <input type="radio" name="conteudo" id="ipt_conteudo" value="Equipamentos">
+                            Equipamentos
+                        </label>
+                        <label>
+                            <input type="radio" name="conteudo" id="ipt_conteudo" value="Técnicas">
+                            Técnicas
+                        </label>
+                        <label>
+                            <input type="radio" name="conteudo" id="ipt_conteudo" value="Treinos">
+                            Treinos
+                        </label>
+                        <label>
+                            <input type="radio" name="conteudo" id="ipt_conteudo" value="Estatísticas">
+                            Outros
+                        </label>
+                    </div>
+                        <button onclick="guardar()" id="botao">Envie suas resposta!</button>
+            </div>
+        </div>
+          <div class="overlay" id="popupOverlay">
+    <div class="popup-card">
+        <h2>Você já respondeu a pesquisa</h2>
+        <p>Caso queira, você pode mudar as respostas que você já tinha enviado!</p>
+        <button onclick="fecharCard()">Atualizar as respostas!</button>
+    </div>
+  </div>
+    </main>
+    
+    <footer>
+        
+    </footer>
+</body>
+<script>
+    validarSessao();
+    validarSessaoPesquisa();
+
+    function guardar() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        var estado = ipt_estado.value;
+    var estado = document.getElementById("ipt_estado").value;
+    var interesse = document.querySelector('input[name="interesse"]:checked')?.value;
+    var nivel = document.querySelector('input[name="nivel"]:checked')?.value;
+    var tempo = document.querySelector('input[name="tempo"]:checked')?.value;
+    var empunhadura = document.querySelector('input[name="empunhadura"]:checked')?.value;
+    var tipoJogo = document.querySelector('input[name="tipo_jogo"]:checked')?.value;
+    var frequencia = document.querySelector('input[name="frequencia"]:checked')?.value;
+    var conteudo = document.querySelector('input[name="conteudo"]:checked')?.value;
+        
+
+        
+
+        console.log(idUsuario, estado, interesse, nivel, tempo, empunhadura, tipoJogo, frequencia, conteudo);
+
+        if (estado == "" || interesse == "" || nivel == "" || tempo == "" || empunhadura == "" || tipoJogo == "" || frequencia == "" || conteudo == "") {
+            alert("Preencha todos os campos!");
+            return;
+        }
+
+      fetch("/pesquisa/guardar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          // crie um atributo que recebe o valor recuperado aqui
+          // Agora vá para o arquivo routes/usuario.js
+          idUsuarioServer: idUsuario,
+          r1Server: estado,
+          r2Server: interesse,
+          r3Server: nivel,
+          r4Server: tempo,
+          r5Server: empunhadura,
+          r6Server: tipoJogo,
+          r7Server: frequencia,
+          r8Server: conteudo
+        }),
+      })
+        .then(function (resposta) {
+          console.log("resposta: ", resposta);
+  
+          if (resposta.ok) {
+  
+
+  
+            setTimeout(() => {
+              //window.location = "index.html";
+            }, "2000");
+  
+          } else {
+            throw "Houve um erro ao tentar realizar o cadastro!";
+          }
+        })
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
+        
+
+
+    }
+
+
+
+
+    var card = document.getElementById('popupOverlay');
+
+    function abrirCard() {
+      card.style.display = 'flex'; // mostra o popup
+    }
+
+    function fecharCard() {
+      card.style.display = 'none'; // esconde o popup
+    }
+</script>
+</html>

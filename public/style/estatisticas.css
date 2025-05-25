@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+.pesquisa-banner {
+    background:
+    linear-gradient(to right, 
+  rgba(0, 0, 0, 0.5),
+  rgba(0, 0, 0, 0.8),
+  rgba(0, 0, 0, 0.8),
+  rgba(0, 0, 0, 0.5)),
+    url('../assets/fanzhendong.jpg') no-repeat;
+    background-size: cover;
+    height: 92vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.caixa-pesquisa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-size: 21px;
+    padding: 30px;
+    width: 50%;
+    color: #dddddd;
+    font-family: 'Outfit', sans-serif;
+}
+
+.caixa-pesquisa h2 {
+    max-width: 100%;
+    margin-bottom: 5%;
+}
+
+.caixa-pesquisa p {
+    max-width: 68%;
+    margin-bottom: 20%;
+}
+.caixa-pesquisa button {
+    margin-bottom: 13%;
+    width: 300px;
+    height: 60px;
+    font-size: 18px;
+    background-color: #890a0a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+.caixa-pesquisa button:hover {
+    background-color: #980b0b;
+}
+.caixa-pesquisa button:active {
+  transform: scale(0.98);
+  background-color: #8b1010;
+
+}
+
+
+.caixa-pesquisa a {
+    text-decoration: none;
+    color: #538996;
+    transition: 0.3s ease;
+}
+.caixa-pesquisa a:hover {
+    color: #9da1a2;
+}
+.tela-graficos {
+    height: 100vh;
+    background-color: #2c2c2c;
+}

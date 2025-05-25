@@ -103,7 +103,7 @@ nav .login-cadastro ul a.sair:hover {
     background-repeat: no-repeat;
     margin-left: 8px;
     position: relative;
-    top: 3px; /* ou -1px, vai testando */
+    top: 3px;
   }
 
 

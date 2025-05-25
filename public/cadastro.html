@@ -10,7 +10,7 @@
     <script src="./script/validacao.js"></script>
     <script src="./script/sessao.js"></script>
 </head>
-<body onload="validarSessaoLogin()">
+<body>
     <main>
         <div class="tela-imagem">
             <div class="logored">
@@ -20,10 +20,8 @@
         <div class="tela-cadastro">
             <div class="painel-cadastro">
                 <h1>Crie sua conta na TopSpinTT!</h1>
-                <label for="ipt_nome" id="lbl_nome">Nome completo*</label>
-                <input type="text" id="ipt_nome" placeholder="Nome">
-                <label for="ipt_usuario" id="lbl_usuario">Nome de Usuário*</label>
-                <input type="text" id="ipt_usuario" placeholder="Usuário">
+                <label for="ipt_nome" id="lbl_nome">Nome de usuário*</label>
+                <input type="text" id="ipt_nome" placeholder="Usuário">
                 <label for="ipt_email" id="lbl_email">Email*</label>
                 <input type="email" id="ipt_email" placeholder="exemplo@exemplo.com">
                 <label for="ipt_dataNasc" id="lbl_dataNasc">Data de Nascimento*</label>
@@ -45,13 +43,13 @@
     </main>
 </body>
 <script>
+  validarSessaoLogin()
     function cadastrar() {
       // aguardar();
   
       //Recupere o valor da nova input pelo nome do id
       // Agora vá para o método fetch logo abaixo
       var nomeipt = ipt_nome.value;
-      var apelidoipt = ipt_usuario.value;
       var emailipt = ipt_email.value;
       var senhaipt = ipt_senha.value;
       var confirmacaoSenhaipt = ipt_senhaconfirm.value;
@@ -66,7 +64,6 @@
       
       // Verificando se há algum campo em branco
       if (!validarCampos(ipt_nome, lbl_nome)) erro = true;
-      if (!validarCampos(ipt_usuario, lbl_usuario)) erro = true;
       if (!validarCampos(ipt_email, lbl_email)) erro = true;
       if (!validarCampos(ipt_senha, lbl_senha)) erro = true;
       if (!validarCampos(ipt_senhaconfirm, lbl_senhaconfirm)) erro = true;
@@ -90,7 +87,6 @@
           // crie um atributo que recebe o valor recuperado aqui
           // Agora vá para o arquivo routes/usuario.js
           nomeServer: nomeipt,
-          apelidoServer: apelidoipt,
           emailServer: emailipt,
           dataNascServer: dataNascipt,
           senhaServer: senhaipt
