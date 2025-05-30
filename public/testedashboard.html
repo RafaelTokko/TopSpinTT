@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Entre no TopSpinTT</title>
+        <link rel="stylesheet" href="style/style.css">
+        <link rel="stylesheet" href="style/pesquisa.css">
+        <link rel="shortcut icon" type="imagex/png" href="./assets/logo/icone.png">
+        <script src="./script/sessao.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
+        <header>
+            
+            
+            <nav>
+                <div class="logo">
+                    <a href="index.html"><img src="assets/logo/logo.png" alt="Logo"></a>
+                </div>
+                <div class="navbar">
+                    <ul>
+                        <li><a href="./index.html">Home</a></li>
+                        <li><a href="./posts.html">Posts</a></li>
+                        <li><a href="./sobremim.html">Sobre mim</a></li>
+                        <li><a href="./estatisticas.html">Estatísticas</a></li>
+                        
+                    </ul>
+                </div>
+                <div id="usuario" class="login-cadastro">
+                    <ul>
+                        <li><a class="entrar" href="login.html">Entrar</a></li>
+                        <li><a class="cadastrar" href="cadastro.html">Cadastre-se</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        
+        <main>
+            <button onclick="obterDadosGrafico()" style="height: 500px; width: 300px;">aaaaa</button>
+            
+            <div class="pesquisa" id="pesquisa">
+                <div class="tela-pesquisa" style="height: 100vh;">
+                    <button onclick="obterDadosGrafico" style="height: 500px; width: 300px;">aaaaa</button>
+                    
+                    <canvas id="myChartCanvas${item.id}"></canvas>
+                </div>
+            </div>
+            <div class="overlay" id="popupOverlay">
+                <div class="popup-card">
+                    <h2>Você já respondeu a pesquisa</h2>
+                    <p>Caso queira, você pode mudar as respostas que você já tinha enviado!</p>
+                    <button onclick="fecharCard()">Atualizar as respostas!</button>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            
+        </footer>
+    </body>
+    <script>
+    let dashboard = [];
+    function obterDadosGrafico() {
+    console.log(`Recuperando resultados gerais`);
+
+        fetch(`/resultados/geral`).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                                    dashboard = resposta;
+                    console.log(resposta);
+                    plotarGrafico(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+function plotarGrafico(resposta) {
+
+    console.log('iniciando plotagem do gráfico...');
+
+    // Criando estrutura para plotar gráfico - labels
+    let labels = [];
+
+    // Criando estrutura para plotar gráfico - dados
+    let dados = {
+        labels: labels,
+        datasets: [{
+            label: 'Umidade',
+            data: [],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        },
+        {
+            label: 'Temperatura',
+            data: [],
+            fill: false,
+            borderColor: 'rgb(199, 52, 52)',
+            tension: 0.1
+        }]
+    };
+
+    console.log('----------------------------------------------')
+    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+    console.log(resposta)
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels.push(registro.momento_grafico);
+            dados.datasets[0].data.push(registro.umidade);
+            dados.datasets[1].data.push(registro.temperatura);
+        }
+                console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+    
+        const config = {
+            type: 'line',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`myChartCanvas${idAquario}`),
+            config
+        );
+
+    }
+
+</script>
+</html>

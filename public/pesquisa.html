@@ -99,7 +99,7 @@
                         </label>
                         <label>
                             <input type="radio" name="nivel" value="Intermediário">
-                            intermediário
+                            Intermediário
                         </label>
                         <label>
                             <input type="radio" name="nivel" value="Avançado">
@@ -117,15 +117,15 @@
                             Menos de 1 ano
                         </label>
                         <label>
-                            <input type="radio" name="tempo" value="1 a 3 anos">
+                            <input type="radio" name="tempo" value="1 a 5 anos">
                             1 a 5 anos
                         </label>
                         <label>
-                            <input type="radio" name="tempo" value="3 a 5 anos">
+                            <input type="radio" name="tempo" value="5 a 10 anos">
                             5 a 10 anos
                         </label>
                         <label>
-                            <input type="radio" name="tempo" value="Mais de 5 anos">
+                            <input type="radio" name="tempo" value="Mais de 10 anos">
                             Mais de 10 anos
                         </label>
                     </div>
@@ -202,14 +202,21 @@
                         </label>
                     </div>
                         <button onclick="guardar()" id="botao">Envie suas resposta!</button>
+                </div>
             </div>
-        </div>
+            <div class="overlay" id="popupErroOverlay">
+                <div class="popup-card">
+                    <h2>Erro no envio</h2>
+                    <p id="msgPopupErro">Por favor, preencha todos os campos antes de enviar.</p>
+                    <button onclick="fecharPopupErro()">Fechar</button>
+                </div>
+            </div>
           <div class="overlay" id="popupOverlay">
-    <div class="popup-card">
-        <h2>Você já respondeu a pesquisa</h2>
-        <p>Caso queira, você pode mudar as respostas que você já tinha enviado!</p>
-        <button onclick="fecharCard()">Atualizar as respostas!</button>
-    </div>
+            <div class="popup-card">
+                <h2>Você já respondeu a pesquisa</h2>
+                <p>Caso queira, você pode mudar as respostas que você já tinha enviado!</p>
+                <button onclick="fecharCard()">Atualizar as respostas!</button>
+            </div>
   </div>
     </main>
     
@@ -223,25 +230,25 @@
 
     function guardar() {
         var idUsuario = sessionStorage.ID_USUARIO;
-        var estado = ipt_estado.value;
-    var estado = document.getElementById("ipt_estado").value;
-    var interesse = document.querySelector('input[name="interesse"]:checked')?.value;
-    var nivel = document.querySelector('input[name="nivel"]:checked')?.value;
-    var tempo = document.querySelector('input[name="tempo"]:checked')?.value;
-    var empunhadura = document.querySelector('input[name="empunhadura"]:checked')?.value;
-    var tipoJogo = document.querySelector('input[name="tipo_jogo"]:checked')?.value;
-    var frequencia = document.querySelector('input[name="frequencia"]:checked')?.value;
-    var conteudo = document.querySelector('input[name="conteudo"]:checked')?.value;
+        var estado = document.getElementById("ipt_estado").value;
+        var interesse = document.querySelector('input[name="interesse"]:checked')?.value;
+        var nivel = document.querySelector('input[name="nivel"]:checked')?.value;
+        var tempo = document.querySelector('input[name="tempo"]:checked')?.value;
+        var empunhadura = document.querySelector('input[name="empunhadura"]:checked')?.value;
+        var tipoJogo = document.querySelector('input[name="tipo_jogo"]:checked')?.value;
+        var frequencia = document.querySelector('input[name="frequencia"]:checked')?.value;
+        var conteudo = document.querySelector('input[name="conteudo"]:checked')?.value;
         
 
         
 
         console.log(idUsuario, estado, interesse, nivel, tempo, empunhadura, tipoJogo, frequencia, conteudo);
 
-        if (estado == "" || interesse == "" || nivel == "" || tempo == "" || empunhadura == "" || tipoJogo == "" || frequencia == "" || conteudo == "") {
-            alert("Preencha todos os campos!");
+        if (!estado || !interesse || !nivel || !tempo || !empunhadura || !tipoJogo || !frequencia || !conteudo) {
+            mostrarPopupErro("Por favor, preencha todos os campos antes de enviar.");
             return;
         }
+        fecharPopupErro();
 
       fetch("/pesquisa/guardar", {
         method: "POST",
@@ -270,11 +277,11 @@
 
   
             setTimeout(() => {
-              //window.location = "index.html";
+              window.location = "estatisticas.html";
             }, "2000");
   
           } else {
-            throw "Houve um erro ao tentar realizar o cadastro!";
+            throw "Houve um erro ao tentar salvar as respostas!";
           }
         })
         .catch(function (resposta) {
@@ -296,6 +303,38 @@
 
     function fecharCard() {
       card.style.display = 'none'; // esconde o popup
+    }
+
+    function mostrarCardErroPesquisa(msg) {
+        const card = document.getElementById('cardErroPesquisa');
+        document.getElementById('msgCardErroPesquisa').textContent = msg;
+        card.style.display = 'block';
+    }
+    function fecharCardErroPesquisa() {
+        document.getElementById('cardErroPesquisa').style.display = 'none';
+    }
+    function mostrarErroSimples(msg) {
+        const div = document.getElementById('msg-erro-simples');
+        div.textContent = msg;
+        div.style.display = 'block';
+        div.style.background = '#ffdddd';
+        div.style.color = '#a94442';
+        div.style.padding = '8px';
+        div.style.margin = '10px 0 0 0';
+        div.style.border = '1px solid #a94442';
+        div.style.borderRadius = '5px';
+        div.style.fontSize = '15px';
+    }
+    function esconderErroSimples() {
+        const div = document.getElementById('msg-erro-simples');
+        div.style.display = 'none';
+    }
+    function mostrarPopupErro(msg) {
+        document.getElementById('msgPopupErro').textContent = msg;
+        document.getElementById('popupErroOverlay').style.display = 'flex';
+    }
+    function fecharPopupErro() {
+        document.getElementById('popupErroOverlay').style.display = 'none';
     }
 </script>
 </html>
