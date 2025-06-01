@@ -6,7 +6,7 @@ body {
 
 .pesquisa {
     background:
-    #2b2b2b;
+    #cdcdcd;
     min-height: 92vh;
     display: flex;
     align-items: center;
@@ -16,8 +16,7 @@ body {
 .painel-pesquisa {
     width: 37%;
     height: 80%;
-    background: #1c1c1c;
-    border: #000 solid 2px;
+    background: #1b1b1b;
     border-radius: 10px;
     display: flex;
     justify-content: center;

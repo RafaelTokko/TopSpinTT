@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: #1c1c1c;
+}
+
+.pesquisa {
+    background:
+    #cdcdcd;
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.painel-pesquisa {
+    width: 37%;
+    height: 80%;
+    background: #202020;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tela-pesquisa {
+    width: 65%;
+    display: flex;
+    min-height: 92vh;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+
+.tela-pesquisa .conteudo-pesquisa {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    padding: 50px 0;
+}
