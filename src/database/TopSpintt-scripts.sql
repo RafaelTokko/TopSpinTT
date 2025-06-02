@@ -27,6 +27,30 @@ CREATE TABLE estado (
 	CONSTRAINT fk_estado_regiao FOREIGN KEY (fkRegiao) REFERENCES regiao(id)
 );
 
+CREATE TABLE post (
+	id INT NOT NULL auto_increment,
+    titulo VARCHAR(100) NOT NULL,
+    descricao VARCHAR(300) NOT NULL,
+    conteudo TEXT NOT NULL,
+    capa VARCHAR(300) NOT NULL,
+    data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE tema (
+    id INT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE post_tema (
+    fkPost INT NOT NULL,
+    fkTema INT NOT NULL,
+    PRIMARY KEY(fkPost, fkTema),
+    FOREIGN KEY (fkPost) REFERENCES post(id),
+    FOREIGN KEY (fkTema) REFERENCES tema(id)
+);
+
 CREATE TABLE pesquisa (
     fkUsuario INT NOT NULL,
     r1 INT NOT NULL, -- estado
@@ -85,44 +109,36 @@ INSERT INTO estado (nome, sigla, fkRegiao) VALUES
     ('Sergipe', 'SE', 2),
     ('Tocantins', 'TO', 1);
     
+INSERT INTO tema (nome) 
+	VALUES
+    ('Iniciante'),
+    ('Intermediário'),
+    ('Avançado'),
+    ('Equipamento'),
+    ('Técnica'),
+    ('Treino'),
+    ('Regras'),
+    ('Jogadores Profissionais'),
+    ('Notícias');
+
 SELECT * FROM usuario;
 select * from estado;
 
-
--- Adicionando coluna de região na tabela estado
-ALTER TABLE estado ADD COLUMN fkRegiao INT;
-ALTER TABLE estado ADD CONSTRAINT fk_regiao_estado FOREIGN KEY (fkRegiao) REFERENCES regiao(id);
-
-
-CREATE OR REPLACE VIEW vw_infoDash 
-AS 
-SELECT u.id AS id,
-u.nome AS usuário,
-TIMESTAMPDIFF(YEAR, u.dataNasc, NOW()) AS idade,
-e.nome AS Estado,
-p.r2 AS nível,
-p.r3 AS tempoJogo,
-p.r4 AS tipo,
-p.r5 AS frequencia,
-p.r6 AS torneio,
-p.r7 AS interesse
-FROM usuario u
-LEFT JOIN
-pesquisa p ON p.fkUsuario = u.id
-INNER JOIN
-estado e ON p.r1 = e.id;
-
-
-INSERT INTO usuario VALUE (3, 'Rafael', 'rafael@gmail.com','2006-08-15','123');
-insert into pesquisa value (3,'1','1','1','1','1','1','1');
-delete from pesquisa where fkUsuario = 3;
-
 select * from usuario;
-select * FROM vw_infoDash;
-
-CREATE OR REPLACE VIEW vw AS SELECT * FROM usuario;
-SELECT * FROM vw;
-
 select * from pesquisa;
-update pesquisa set r1 = 23, r2 = 'adsda' where fkUsuario = 3;
 
+-- Usuários de exemplo
+INSERT INTO usuario (nome, email, dataNasc, senha) VALUES
+('Rafael', 'rafael@gmail.com', '2006-08-15', '123'),
+('Ana', 'ana@email.com', '1998-04-22', 'senhaana'),
+('Carlos', 'carlos@email.com', '1990-12-01', 'senhacarlos'),
+('Beatriz', 'bia@email.com', '2002-07-30', 'senhabia'),
+('João', 'joao@email.com', '1985-03-10', 'senhajoao');
+
+-- Pesquisas respondidas de exemplo
+INSERT INTO pesquisa (fkUsuario, r1, r2, r3, r4, r5, r6, r7, r8) VALUES
+(1, 24, 'Competição', 'Avançado', 'Mais de 10 anos', 'Clássico', 'Ofensivo', 'Mais de três vezes por semana', 'Técnicas'),
+(2, 12, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Defensivo', 'Uma vez por semana', 'Equipamentos'),
+(3, 5, 'Socialização', 'Intermediário', '5 a 10 anos', 'Classineta', 'Allround', 'Duas a três vezes por semana', 'Treinos'),
+(4, 18, 'Condicionamento físico', 'Intermediário', 'Menos de 1 ano', 'Clássico', 'Ofensivo', 'Menos de uma vez por semana', 'Regras'),
+(5, 9, 'Competição', 'Profissional', 'Mais de 10 anos', 'Caneta', 'Ofensivo', 'Mais de três vezes por semana', 'Estatísticas');

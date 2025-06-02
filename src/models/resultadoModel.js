@@ -4,6 +4,8 @@ function buscarResultadosGerais(resposta, apelido) {
     var instrucaoSql = `SELECT 
         ${resposta} as ${apelido}, count(*) as total
         FROM pesquisa
+        INNER JOIN estado e ON pesquisa.r1 = e.id
+        INNER JOIN regiao r ON e.fkRegiao = r.id
         GROUP BY ${resposta}
         ORDER BY total DESC`;
 

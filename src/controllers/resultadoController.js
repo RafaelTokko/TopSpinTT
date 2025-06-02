@@ -36,34 +36,34 @@ function buscarResultadosIndividuais(req, res) {
     });
 }
 
-function buscarResultadosGerais(req, res) {
-    resultadoModel.buscarResultadosGerais('r1', 'Estado').then(function (estados) {
-        resultadoModel.buscarResultadosGerais('r2', 'Interesse').then(function (interesses) {
-            resultadoModel.buscarResultadosGerais('r3', 'Nivel').then(function (niveis) {
-                resultadoModel.buscarResultadosGerais('r4', 'Tempo').then(function (tempos) {
-                    resultadoModel.buscarResultadosGerais('r5', 'Empunhadura').then(function (empunhaduras) {
-                        resultadoModel.buscarResultadosGerais('r6', 'TipoJogo').then(function (tiposJogo) {
-                            resultadoModel.buscarResultadosGerais('r7', 'Frequencia').then(function (frequencias) {
-                                resultadoModel.buscarResultadosGerais('r8', 'Conteudo').then(function (conteudos) {
-                                    const respostas = {
-                                        estados,
-                                        interesses,
-                                        niveis,
-                                        tempos,
-                                        empunhaduras,
-                                        tiposJogo,
-                                        frequencias,
-                                        conteudos
-                                    };
-                                    res.status(200).json(respostas);
-                                }).catch(erro => erroHandler(res, erro));
-                            }).catch(erro => erroHandler(res, erro));
-                        }).catch(erro => erroHandler(res, erro));
-                    }).catch(erro => erroHandler(res, erro));
-                }).catch(erro => erroHandler(res, erro));
-            }).catch(erro => erroHandler(res, erro));
-        }).catch(erro => erroHandler(res, erro));
-    }).catch(erro => erroHandler(res, erro));
+async function buscarResultadosGerais(req, res) {
+    try {
+        const [estados, interesses, niveis, tempos, empunhaduras, tiposJogo, frequencias, conteudos, regiao] = await Promise.all([
+            resultadoModel.buscarResultadosGerais('r1', 'Estado'),
+            resultadoModel.buscarResultadosGerais('r2', 'Interesse'),
+            resultadoModel.buscarResultadosGerais('r3', 'Nivel'),
+            resultadoModel.buscarResultadosGerais('r4', 'Tempo'),
+            resultadoModel.buscarResultadosGerais('r5', 'Empunhadura'),
+            resultadoModel.buscarResultadosGerais('r6', 'TipoJogo'),
+            resultadoModel.buscarResultadosGerais('r7', 'Frequencia'),
+            resultadoModel.buscarResultadosGerais('r8', 'Conteudo'),
+            resultadoModel.buscarResultadosGerais('r.nome', 'Regiao')
+        ]);
+        const respostas = {
+            estados,
+            interesses,
+            niveis,
+            tempos,
+            empunhaduras,
+            tiposJogo,
+            frequencias,
+            conteudos,
+            regiao
+        };
+        res.status(200).json(respostas);
+    } catch (erro) {
+        erroHandler(res, erro);
+    }
 }
 
 function erroHandler(res, erro) {

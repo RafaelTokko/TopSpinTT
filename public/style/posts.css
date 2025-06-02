@@ -5,7 +5,7 @@ body {
     background-color: #1c1c1c;
 }
 
-.pesquisa {
+.posts {
     background:
     #cdcdcd;
     min-height: 92vh;
@@ -14,21 +14,12 @@ body {
     justify-content: center;
 }
 
-.painel-pesquisa {
-    width: 37%;
-    height: 80%;
-    background: #202020;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-.tela-pesquisa {
-    width: 65%;
+.tela-posts {
     display: flex;
     min-height: 92vh;
     height: 100%;
+    width: 100%;
     background: #fff;
     display: flex;
     justify-content: center;
@@ -36,10 +27,91 @@ body {
     box-sizing: border-box;
 }
 
-.tela-pesquisa .conteudo-pesquisa {
+.tela-posts .conteudo-posts {
     display: flex;
     flex-direction: column;
 
     align-items: center;
     padding: 50px 0;
 }
+.tela-posts .conteudo-posts .titulo {
+    width: 100%;
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.tela-posts .conteudo-posts .titulo h2 {
+    font-size: 40px;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+.tela-posts .conteudo-posts .titulo p {
+    font-size: 21px;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+.posts-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.post-cards {
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    width: 380px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: transform 0.15s, box-shadow 0.15s;
+    margin-bottom: 10px;
+}
+
+.post-cards img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 7px 7px 0 0;
+}
+
+.post-cards h3 {
+    font-size: 1.35em;
+    font-weight: 700;
+    color: #223366;
+    margin: 18px 18px 8px 18px;
+    line-height: 1.2;
+}
+
+.post-cards p {
+    color: #4a4a4a;
+    font-size: 1.05em;
+    margin: 0 18px 18px 18px;
+    flex: 1;
+}
+
+.post-cards a {
+    display: block;
+    margin: 20px 18px 18px 18px;
+    padding: 10px 5px;
+    background: #2346a0;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.15s;
+}
+
+.post-cards a:hover {
+    background: #1a357a;
+}
+
+

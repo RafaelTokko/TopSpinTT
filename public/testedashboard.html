@@ -41,9 +41,9 @@
             
             <div class="pesquisa" id="pesquisa">
                 <div class="tela-pesquisa" style="height: 100vh;">
-                    <button onclick="obterDadosGrafico" style="height: 500px; width: 300px;">aaaaa</button>
                     
-                    <canvas id="myChartCanvas${item.id}"></canvas>
+                    <canvas id="regiaoGrafico"></canvas>
+                    <canvas id="nivelGrafico"></canvas>
                 </div>
             </div>
             <div class="overlay" id="popupOverlay">
@@ -59,7 +59,7 @@
             
         </footer>
     </body>
-    <script>
+<script>
     let dashboard = [];
     function obterDadosGrafico() {
     console.log(`Recuperando resultados gerais`);
@@ -83,60 +83,113 @@
     }
 
 function plotarGrafico(resposta) {
-
-    console.log('iniciando plotagem do gráfico...');
-
-    // Criando estrutura para plotar gráfico - labels
-    let labels = [];
-
-    // Criando estrutura para plotar gráfico - dados
-    let dados = {
-        labels: labels,
+    // Gráfico de Regiões
+    let labelRegiao = [];
+    const coresPorRegiao = {
+        'Norte': '#1abc9c',
+        'Nordeste': '#f1c40f',
+        'Centro-Oeste': '#e67e22',
+        'Sudeste': '#2980b9',
+        'Sul': '#8e44ad'
+    };
+    let backgroundColorsRegiao = [];
+    let regiaoGrafico = {
+        labels: labelRegiao,
         datasets: [{
-            label: 'Umidade',
+            label: 'Regiões',
             data: [],
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        },
-        {
-            label: 'Temperatura',
-            data: [],
-            fill: false,
-            borderColor: 'rgb(199, 52, 52)',
-            tension: 0.1
+            backgroundColor: backgroundColorsRegiao,
+            borderColor: '#fff',
+            borderWidth: 2
         }]
     };
-
-    console.log('----------------------------------------------')
-    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-    console.log(resposta)
-        for (i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            labels.push(registro.momento_grafico);
-            dados.datasets[0].data.push(registro.umidade);
-            dados.datasets[1].data.push(registro.temperatura);
-        }
-                console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(labels)
-        console.log('Dados:')
-        console.log(dados.datasets)
-        console.log('----------------------------------------------')
-    
-        const config = {
-            type: 'line',
-            data: dados,
-        };
-
-        // Adicionando gráfico criado em div na tela
-        let myChart = new Chart(
-            document.getElementById(`myChartCanvas${idAquario}`),
-            config
-        );
-
+    let regiao = resposta.regiao;
+    // Primeiro, somamos todos os valores para saber o total
+    let totalRegiao = 0;
+    for (let i = 0; i < regiao.length; i++) {
+        totalRegiao += regiao[i].total;
     }
+    // Agora, para cada região, calculamos a porcentagem
+    for (let i = 0; i < regiao.length; i++) {
+        var registro = regiao[i];
+        labelRegiao.push(registro.Regiao);
+        // Calcula a porcentagem: (valor da região / total) * 100
+        let porcentagem = totalRegiao > 0 ? ((registro.total / totalRegiao) * 100).toFixed(1) : 0;
+        regiaoGrafico.datasets[0].data.push(porcentagem);
+        backgroundColorsRegiao.push(coresPorRegiao[registro.Regiao] || '#cccccc');
+    }
+
+    // Gráfico de Níveis
+    let labelNivel = [];
+    let backgroundColorsNivel = ['#2980b9', '#27ae60', '#e67e22', '#c0392b'];
+    let nivelGrafico = {
+        labels: labelNivel,
+        datasets: [{
+            label: 'Níveis',
+            data: [],
+            backgroundColor: backgroundColorsNivel,
+            borderColor: '#fff',
+            borderWidth: 2
+        }]
+    };
+    let niveis = resposta.niveis;
+    // Soma total dos níveis
+    let totalNivel = 0;
+    for (let i = 0; i < niveis.length; i++) {
+        totalNivel += niveis[i].total;
+    }
+    for (let i = 0; i < niveis.length; i++) {
+        var nivel = niveis[i];
+        labelNivel.push(nivel.Nivel);
+        let porcentagem = totalNivel > 0 ? ((nivel.total / totalNivel) * 100).toFixed(1) : 0;
+        nivelGrafico.datasets[0].data.push(porcentagem);
+    }
+
+    // Configuração dos gráficos
+    const configRegiao = {
+        type: 'pie',
+        data: regiaoGrafico,
+        options: {
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'left'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.label || '';
+                            let index = context.dataIndex;
+                            let valorAbsoluto = regiao[index] ? regiao[index].total : 0;
+                            let value = context.parsed;
+                            return `${label}: ${value}% (${valorAbsoluto})`;
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    const configNivel = {
+        type: 'bar',
+        data: nivelGrafico,
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    };
+    // Renderiza os dois gráficos
+    new Chart(document.getElementById('regiaoGrafico'), configRegiao);
+    new Chart(document.getElementById('nivelGrafico'), configNivel);
+}
+
+// Chama automaticamente ao carregar a página
+document.addEventListener('DOMContentLoaded', function() {
+    obterDadosGrafico();
+});
 
 </script>
 </html>

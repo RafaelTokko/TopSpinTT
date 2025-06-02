@@ -9,7 +9,7 @@
     <link rel="shortcut icon" type="imagex/png" href="./assets/logo/icone.png">
     <script src="./script/sessao.js"></script>
 </head>
-<body>
+<body onload="verificarPosts()">
     <header>
 
 
@@ -36,12 +36,51 @@
         </header>
         
     <main>
-        <div class="pesquisa" id="pesquisa">
-            <div class="tela-pesquisa">
-                <div class="conteudo-pesquisa">
-                    <h2>Responda o formulário e ajude o site a melhorar!</h2>
-                    <p>No final, também haverá dicas personalizadas para a sua evolução de acordo com o tipo de jogador que você é!</p>
-                    <button onclick="location.href='./pesquisa.html';">Iniciar pesquisa</button>
+        <div class="posts" id="posts">
+            <div class="tela-posts">
+                <div class="conteudo-posts">
+                    <div class="titulo">
+                        <h2>TopSpinTT - Posts</h2>
+                        <p>Aqui você encontra conteúdo pra todos os lados do tênis de mesa — técnica, equipamentos, curiosidades e mais.</p>
+                    </div>
+                    <div class="posts-list" id="posts-list">
+                        <div class="post-cards">
+                            <img src="assets/malong.jpg" alt="Ma Long playing table tennis">
+                            <h3>How To Defeat Your Table Tennis Nemesis</h3>
+                            <p>The following blog post was written by table tennis player and coach Matt Hetherington and describes his experience of finally defeating his unnamed table tennis nemesis. Have you ever had an opponent who you just can’t seem to beat? Someone...</p>
+                            <a href="#">Leia mais</a>
+                        </div>
+                        <div class="post-cards">
+                            <img src="assets/tenisdemesa_20221017.webp" alt="Table tennis player resting">
+                            <h3>Table Tennis Burnout and When to Take a Break</h3>
+                            <p>The following blog post was written by table tennis player and coach Matt Hetherington and describes his personal experiences of table tennis burnout and the need to take a break every once in a while. I’m going to talk about...</p>
+                            <a href="#">Leia mais</a>
+                        </div>
+                        <div class="post-cards">
+                            <img src="assets/calderano-forehand.jpg" alt="Liam Pitchford behind-the-back shot">
+                            <h3>How to do the “Behind-the-Back” Shot like Liam Pitchford</h3>
+                            <p>Liam Pitchford has become known as something of a master at the “behind-the-back” table tennis shot. In fact, he pulled it off twice against the legend that is Jun Mizutani! It’s pretty impressive to be able to pull it off...</p>
+                            <a href="#">Leia mais</a>
+                        </div>
+                        <div class="post-cards">
+                            <img src="assets/fanzhendong.jpg" alt="Fan Zhendong serving">
+                            <h3>Fan Zhendong: The Art of the Power Serve</h3>
+                            <p>Fan Zhendong is renowned for his explosive serves and aggressive play style. In this post, we break down his signature power serve and give tips on how you can add more speed and spin to your own game.</p>
+                            <a href="#">Leia mais</a>
+                        </div>
+                        <div class="post-cards">
+                            <img src="assets/calderano.jpg" alt="Hugo Calderano celebrating">
+                            <h3>Hugo Calderano: Brazil’s Table Tennis Star</h3>
+                            <p>Discover the journey of Hugo Calderano, Brazil’s top table tennis player, from his early days to competing among the world’s elite. Learn about his training, mindset, and what makes him a fan favorite.</p>
+                            <a href="#">Leia mais</a>
+                        </div>
+                        <div class="post-cards">
+                            <img src="assets/placar.jpg" alt="Table tennis scoreboard">
+                            <h3>Understanding Table Tennis Scoring</h3>
+                            <p>Confused about how scoring works in table tennis? This post explains the rules, common mistakes, and tips to keep track of your matches like a pro.</p>
+                            <a href="#">Leia mais</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>        
@@ -52,6 +91,35 @@
     </footer>
 </body>
 <script>
-
+    validarSessao();
+    function verificarPosts() {
+        const posts = document.getElementById('posts-list');
+        fetch("/posts/geral").then(function (response) {
+            if (response.ok) {
+                response.json().then(function (data) {
+                    if (data.length > 0) {
+                        posts.innerHTML = '';
+                        data.forEach(post => {
+                            posts.innerHTML += `
+                        <div class="post-cards">                            
+                                <img src="${post.image}" alt="${post.title}">
+                                <h3>${post.title}</h3>
+                                <p>${post.description}</p>
+                                <a href="${post.link}">Read More</a>
+                        </div>                                
+                            `;
+                            posts.appendChild(postCard);
+                        });
+                    } else {
+                        posts.innerHTML = '<p>Nenhuma resposta obtida.</p>';
+                    }
+                });
+            } else {
+                console.error('Erro ao obter os posts:', response.statusText);
+            }
+        }).catch(function (error) {
+            console.error('Erro na requisição:', error);
+        });
+    }
 </script>
 </html>
