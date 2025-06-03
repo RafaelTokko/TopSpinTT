@@ -73,7 +73,7 @@ nav .login-cadastro ul li.user{
     flex-direction: row;
     font-size: 17px;
     font-weight: 200;
-    width: 120px;
+    min-width: 120px;
     color: white;
     font-family: 'Outfit', sans-serif;
     border-radius: 3px;

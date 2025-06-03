@@ -250,7 +250,7 @@ function plotarGrafico(resposta) {
                             let index = context.dataIndex;
                             let valorAbsoluto = regiao[index].total;
                             let value = context.parsed;
-                            let porcentagem = parseFloat((valorAbsoluto / totalRegiao) * 100);
+                            let porcentagem = ((valorAbsoluto / totalRegiao) * 100).toFixed(2);
                             return `${label}: ${valorAbsoluto} (${porcentagem}%)`;
                         }
                     }
@@ -276,7 +276,7 @@ function plotarGrafico(resposta) {
                             let index = context.dataIndex;
                             let valorAbsoluto = niveis[index].total;
                             let value = context.raw;
-                            let porcentagem = parseFloat((valorAbsoluto / totalNivel) * 100);
+                            let porcentagem = ((valorAbsoluto / totalNivel) * 100).toFixed(2);
                             return `${label}: ${valorAbsoluto} (${porcentagem}%)`;
                         }
                     },
@@ -320,7 +320,7 @@ function plotarGrafico(resposta) {
                             let index = context.dataIndex;
                             let valorAbsoluto = faixaEtaria[index].total;
                             let value = context.raw;
-                            let porcentagem = parseFloat((valorAbsoluto / totalFaixaEtaria) * 100);
+                            let porcentagem = ((valorAbsoluto / totalFaixaEtaria) * 100).toFixed(2);
                             return `${label}: ${valorAbsoluto} (${porcentagem}%)`;
                         }
                     },
