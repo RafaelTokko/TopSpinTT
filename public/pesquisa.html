@@ -197,11 +197,14 @@
                             Treinos
                         </label>
                         <label>
-                            <input type="radio" name="conteudo" id="ipt_conteudo" value="Estatísticas">
+                            <input type="radio" name="conteudo" id="ipt_conteudo" value="Outros">
                             Outros
                         </label>
                     </div>
-                        <button onclick="guardar()" id="botao">Envie suas resposta!</button>
+                        <div id="botaodiv">
+                            <button onclick="guardar()" id="botao">Envie suas resposta!</button>
+                        </div>
+                        
                 </div>
             </div>
             <div class="overlay" id="popupErroOverlay">
@@ -226,18 +229,27 @@
 </body>
 <script>
     validarSessao();
-    //validarSessaoPesquisa();
+    validarSessaoPesquisa();
+
+    function getCheckedValue(name) {
+        const elemento = document.querySelector(`input[name="${name}"]:checked`);
+        if (elemento == null) {
+            return null;
+        } else {
+            return elemento.value;
+        }
+    }
 
     function guardar() {
         var idUsuario = sessionStorage.ID_USUARIO;
         var estado = document.getElementById("ipt_estado").value;
-        var interesse = document.querySelector('input[name="interesse"]:checked')?.value;
-        var nivel = document.querySelector('input[name="nivel"]:checked')?.value;
-        var tempo = document.querySelector('input[name="tempo"]:checked')?.value;
-        var empunhadura = document.querySelector('input[name="empunhadura"]:checked')?.value;
-        var tipoJogo = document.querySelector('input[name="tipo_jogo"]:checked')?.value;
-        var frequencia = document.querySelector('input[name="frequencia"]:checked')?.value;
-        var conteudo = document.querySelector('input[name="conteudo"]:checked')?.value;
+        var interesse = getCheckedValue("interesse");
+        var nivel = getCheckedValue("nivel");
+        var tempo = getCheckedValue("tempo");
+        var empunhadura = getCheckedValue("empunhadura");
+        var tipoJogo = getCheckedValue("tipo_jogo");
+        var frequencia = getCheckedValue("frequencia");
+        var conteudo = getCheckedValue("conteudo");
         
 
         
@@ -256,8 +268,6 @@
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          // crie um atributo que recebe o valor recuperado aqui
-          // Agora vá para o arquivo routes/usuario.js
           idUsuarioServer: idUsuario,
           r1Server: estado,
           r2Server: interesse,
@@ -273,7 +283,8 @@
           console.log("resposta: ", resposta);
   
           if (resposta.ok) {
-  
+            botaodiv.innerHTML = "";
+            botaodiv.innerHTML = "Salvando respostas...";
 
   
             setTimeout(() => {

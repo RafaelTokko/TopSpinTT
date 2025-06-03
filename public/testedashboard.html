@@ -177,7 +177,7 @@ function plotarGrafico(resposta) {
             plugins: {
                 legend: {
                     display: false
-                }
+                },
             }
         }
     };
@@ -185,11 +185,6 @@ function plotarGrafico(resposta) {
     new Chart(document.getElementById('regiaoGrafico'), configRegiao);
     new Chart(document.getElementById('nivelGrafico'), configNivel);
 }
-
-// Chama automaticamente ao carregar a página
-document.addEventListener('DOMContentLoaded', function() {
-    obterDadosGrafico();
-});
 
 </script>
 </html>

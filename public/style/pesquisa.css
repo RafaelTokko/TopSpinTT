@@ -154,6 +154,13 @@ body {
     background-color: #f0f0f0;
 }
 
+#botaodiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
 .tela-pesquisa .conteudo-pesquisa button {
     justify-self: center;
     width: 50%;

@@ -7,7 +7,7 @@ CREATE TABLE usuario (
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(254) NOT NULL,
     dataNasc DATE NOT NULL,
-    senha VARCHAR(100) NOT NULL,
+    senha_hash VARCHAR(200) NOT NULL,
     PRIMARY KEY(id)
 );
 
@@ -124,21 +124,44 @@ INSERT INTO tema (nome)
 SELECT * FROM usuario;
 select * from estado;
 
+select * from pesquisa;
+
 select * from usuario;
 select * from pesquisa;
 
 -- Usuários de exemplo
-INSERT INTO usuario (nome, email, dataNasc, senha) VALUES
-('Rafael', 'rafael@gmail.com', '2006-08-15', '123'),
-('Ana', 'ana@email.com', '1998-04-22', 'senhaana'),
-('Carlos', 'carlos@email.com', '1990-12-01', 'senhacarlos'),
-('Beatriz', 'bia@email.com', '2002-07-30', 'senhabia'),
-('João', 'joao@email.com', '1985-03-10', 'senhajoao');
+INSERT INTO usuario (nome, email, dataNasc, senha_hash)
+	VALUES
+	('Rafael', 'rafael@gmail.com', '2006-08-15', SHA2('123',256)),
+	('Ana', 'ana@email.com', '1998-04-22', SHA2('senhaana',256)),
+	('Carlos', 'carlos@email.com', '1990-12-01', SHA2('senhacarlos',256)),
+	('Beatriz', 'bia@email.com', '2002-07-30', SHA2('senhabia',256)),
+	('João', 'joao@email.com', '1985-03-10', SHA2('senhajoao',256)),
+	('Marina', 'marina@email.com', '2001-11-05', SHA2('senhamarina',256)),
+	('Lucas', 'lucas@email.com', '1995-02-17', SHA2('senhalucas',256)),
+	('Paula', 'paula@email.com', '1988-09-23', SHA2('senhapaula',256)),
+	('Felipe', 'felipe@email.com', '1993-06-12', SHA2('senhafelipe',256)),
+	('Juliana', 'juliana@email.com', '2000-01-30', SHA2('senhajuliana',256));
 
--- Pesquisas respondidas de exemplo
-INSERT INTO pesquisa (fkUsuario, r1, r2, r3, r4, r5, r6, r7, r8) VALUES
-(1, 24, 'Competição', 'Avançado', 'Mais de 10 anos', 'Clássico', 'Ofensivo', 'Mais de três vezes por semana', 'Técnicas'),
-(2, 12, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Defensivo', 'Uma vez por semana', 'Equipamentos'),
-(3, 5, 'Socialização', 'Intermediário', '5 a 10 anos', 'Classineta', 'Allround', 'Duas a três vezes por semana', 'Treinos'),
-(4, 18, 'Condicionamento físico', 'Intermediário', 'Menos de 1 ano', 'Clássico', 'Ofensivo', 'Menos de uma vez por semana', 'Regras'),
-(5, 9, 'Competição', 'Profissional', 'Mais de 10 anos', 'Caneta', 'Ofensivo', 'Mais de três vezes por semana', 'Estatísticas');
+-- Pesquisas respondidas de exemplo (uma por usuário)
+INSERT INTO pesquisa (fkUsuario, r1, r2, r3, r4, r5, r6, r7, r8)
+	VALUES
+	(1, 24, 'Competição', 'Avançado', 'Mais de 10 anos', 'Clássico', 'Ofensivo', 'Mais de três vezes por semana', 'Técnicas'),
+	(2, 12, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Defensivo', 'Uma vez por semana', 'Equipamentos'),
+	(3, 5, 'Socialização', 'Intermediário', '5 a 10 anos', 'Classineta', 'Allround', 'Duas a três vezes por semana', 'Treinos'),
+	(4, 18, 'Condicionamento físico', 'Intermediário', 'Menos de 1 ano', 'Clássico', 'Ofensivo', 'Menos de uma vez por semana', 'Regras'),
+	(5, 9, 'Competição', 'Profissional', 'Mais de 10 anos', 'Caneta', 'Ofensivo', 'Mais de três vezes por semana', 'Estatísticas'),
+	(6, 1, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Defensivo', 'Uma vez por semana', 'Outros'),
+	(7, 15, 'Socialização', 'Intermediário', '5 a 10 anos', 'Classineta', 'Allround', 'Duas a três vezes por semana', 'Treinos'),
+	(8, 20, 'Condicionamento físico', 'Intermediário', 'Menos de 1 ano', 'Clássico', 'Ofensivo', 'Menos de uma vez por semana', 'Regras'),
+	(9, 23, 'Competição', 'Profissional', 'Mais de 10 anos', 'Caneta', 'Ofensivo', 'Mais de três vezes por semana', 'Técnicas'),
+	(10, 7, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Defensivo', 'Uma vez por semana', 'Equipamentos');
+
+
+SELECT
+        r.nome as regiao, count(*) as total
+        FROM pesquisa
+        INNER JOIN estado e ON pesquisa.r1 = e.id
+        INNER JOIN regiao r ON e.fkRegiao = r.id
+        GROUP BY r.nome
+        ORDER BY total DESC;

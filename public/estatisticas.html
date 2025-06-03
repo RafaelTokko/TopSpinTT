@@ -24,7 +24,7 @@
                         <li><a href="./posts.html">Posts</a></li>
                         <li><a href="./sobremim.html">Sobre mim</a></li>
                         <li><a href="./estatisticas.html">Estatísticas</a></li>
-                        
+
                     </ul>
                 </div>
                 <div id="usuario" class="login-cadastro">
@@ -46,22 +46,31 @@
             </div>
         </div>
         <div class="tela-graficos" id="anchor">
+            <h1>Estatísticas Gerais</h1>
             <div class="info-cards">
-                <div class="grafico">
-                    <canvas id="regiaoGrafico"></canvas>
-                </div>
-                <div class="texto">
-                    <h2>Regiões dos jogadores</h2>
-                    <p>Veja a distribuição geográfica dos jogadores que responderam à pesquisa. Isso pode ajudar a entender onde o tênis de mesa é mais popular e onde há mais oportunidades para eventos e competições.</p>
+                <h2>Regiões dos jogadores</h2>
+                <div class="conteudo-info">
+                    <div class="grafico">
+                        <canvas id="regiaoGrafico"></canvas>
+                    </div>
+                    <div class="texto">
+                        <p>Veja a distribuição geográfica dos jogadores que responderam à pesquisa. Isso pode ajudar a entender onde o tênis de mesa é mais popular e onde há mais oportunidades para eventos e competições.</p>
+                        <p>A maior parte dos nossos jogadores são da Região: <span id="maiorRegiao"></span></p>
+                    </div>
                 </div>
             </div>
             <div class="info-cards">
-                <div class="grafico">
-                    <canvas id="nivelGrafico"></canvas>
-                </div>
-                <div class="texto">
-                    <h2>Regiões dos jogadores</h2>
-                    <p>Veja a distribuição geográfica dos jogadores que responderam à pesquisa. Isso pode ajudar a entender onde o tênis de mesa é mais popular e onde há mais oportunidades para eventos e competições.</p>
+                <h2>Nivel dos Jogadores</h2>
+                <div class="conteudo-info">
+                    <div class="grafico">
+                        <canvas id="nivelGrafico"></canvas>
+                    </div>
+                    <div class="texto">
+                        <p>Descubra como os participantes do site se distribuem entre os diferentes níveis de habilidade. Assim, você pode comparar seu progresso com outros jogadores e encontrar conteúdos adequados para o seu momento no tênis de mesa.</p>
+                        <div class="valor" id="valor">
+                            <p>A grande parte dos atletas do TopSpinTT são do nível: <span id="maiorNivel"></span></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -76,24 +85,46 @@
     let dashboard = [];
     function obterDadosGrafico() {
     console.log(`Recuperando resultados gerais`);
+    let regiao = null;
+    let niveis = null;
 
-        fetch(`/resultados/geral`).then(function (response) {
+    fetch('/resultados/regioes')
+        .then(function (response) {
             if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                                    dashboard = resposta;
-                    console.log(resposta);
-                    console.log(`Gráficos plotados com sucesso`);
-                    plotarGrafico(resposta);
-
-                });
+                return response.json();
             } else {
-                console.error('Nenhum dado encontrado ou erro na API');
+                console.error('Nenhum dado encontrado ou erro na API (regioes)');
+                return [];
             }
         })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
+        .then(function (dadosRegiao) {
+            regiao = dadosRegiao || [];
+            if (niveis !== null) {
+                plotarGrafico({ regiao, niveis });
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico (regioes): ${error.message}`);
+        });
+
+    fetch('/resultados/niveis')
+        .then(function (response) {
+            if (response.ok) {
+                return response.json();
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API (niveis)');
+                return [];
+            }
+        })
+        .then(function (dadosNiveis) {
+            niveis = dadosNiveis || [];
+            if (regiao !== null) {
+                plotarGrafico({ regiao, niveis });
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico (niveis): ${error.message}`);
+        });
     }
 
 function plotarGrafico(resposta) {
@@ -114,8 +145,8 @@ function plotarGrafico(resposta) {
             label: 'Regiões',
             data: [],
             backgroundColor: backgroundColorsRegiao,
-            borderColor: '#fff',
-            borderWidth: 2
+            borderColor: '#1d1d1d',
+            borderWidth: 1
         }]
     };
     let regiao = resposta.regiao;
@@ -128,8 +159,12 @@ function plotarGrafico(resposta) {
     for (let i = 0; i < regiao.length; i++) {
         var registro = regiao[i];
         labelRegiao.push(registro.Regiao);
-        // Calcula a porcentagem: (valor da região / total) * 100
-        let porcentagem = totalRegiao > 0 ? ((registro.total / totalRegiao) * 100).toFixed(1) : 0;
+        let porcentagem;
+        if (totalRegiao > 0) {
+            porcentagem = ((registro.total / totalRegiao) * 100).toFixed(1);
+        } else {
+            porcentagem = 0;
+        }
         regiaoGrafico.datasets[0].data.push(porcentagem);
         backgroundColorsRegiao.push(coresPorRegiao[registro.Regiao] || '#cccccc');
     }
@@ -143,8 +178,6 @@ function plotarGrafico(resposta) {
             label: 'Níveis',
             data: [],
             backgroundColor: backgroundColorsNivel,
-            borderColor: '#fff',
-            borderWidth: 2
         }]
     };
     let niveis = resposta.niveis;
@@ -156,7 +189,12 @@ function plotarGrafico(resposta) {
     for (let i = 0; i < niveis.length; i++) {
         var nivel = niveis[i];
         labelNivel.push(nivel.Nivel);
-        let porcentagem = totalNivel > 0 ? ((nivel.total / totalNivel) * 100).toFixed(1) : 0;
+        let porcentagem;
+        if (totalNivel > 0) {
+            porcentagem = ((nivel.total / totalNivel) * 100).toFixed(1);
+        } else {
+            porcentagem = 0;
+        }
         nivelGrafico.datasets[0].data.push(porcentagem);
     }
 
@@ -168,14 +206,22 @@ function plotarGrafico(resposta) {
             plugins: {
                 legend: {
                     display: true,
-                    position: 'left'
+                    position: 'left',
+                    labels: {
+                        color: '#fff'
+                    }
                 },
                 tooltip: {
                     callbacks: {
                         label: function(context) {
                             let label = context.label || '';
                             let index = context.dataIndex;
-                            let valorAbsoluto = regiao[index] ? regiao[index].total : 0;
+                            let valorAbsoluto;
+                            if (regiao[index]) {
+                                valorAbsoluto = regiao[index].total;
+                            } else {
+                                valorAbsoluto = 0;
+                            }
                             let value = context.parsed;
                             return `${label}: ${value}% (${valorAbsoluto})`;
                         }
@@ -193,7 +239,36 @@ function plotarGrafico(resposta) {
                 legend: {
                     display: false
                 },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.label || '';
+                            let index = context.dataIndex;
+                            let valorAbsoluto;
+                            if (regiao[index]) {
+                                valorAbsoluto = regiao[index].total;
+                            } else {
+                                valorAbsoluto = 0;
+                            }
+                            let value = context.raw;
+                            return `${label}: ${value}% (${valorAbsoluto})`;
+                        }
+                    },
+                    bodyColor: '#fff'
+                }
+            },
+            scales: {
+            x: {
+                ticks: {
+                    color: '#fff' // Cor dos labels do eixo X
+                }
+            },
+            y: {
+                ticks: {
+                    color: '#fff' // Cor dos números do eixo Y
+                }
             }
+            },
         }
     };
     // Renderiza os dois gráficos
