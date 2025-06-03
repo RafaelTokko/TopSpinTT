@@ -13,6 +13,26 @@ function buscarResultadosGerais(resposta, apelido) {
     return database.executar(instrucaoSql);
 }
 
+function buscarResultadosFaixaEtaria() {
+    var instrucaoSql = `
+SELECT FaixaEtaria, count(*) AS total FROM (SELECT 
+    idade,
+    CASE
+        WHEN idade > 50 THEN 'Mais de 50 anos'
+        WHEN idade > 20 THEN 'Entre 20 e 50 anos'
+        WHEN idade > 10 THEN 'Entre 10 e 20 anos'
+        ELSE 'Menos de 10 anos'
+    END as faixaEtaria
+FROM (
+    SELECT TIMESTAMPDIFF(YEAR, dataNasc, CURDATE()) AS idade
+    FROM usuario
+) idade) tabela
+GROUP BY faixaEtaria`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function buscarResultadosIndividuais(idUsuario) {
 
     var instrucaoSql = `SELECT
@@ -34,5 +54,6 @@ function buscarResultadosIndividuais(idUsuario) {
 
 module.exports = {
     buscarResultadosGerais,
+    buscarResultadosFaixaEtaria,
     buscarResultadosIndividuais
 }

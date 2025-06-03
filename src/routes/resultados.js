@@ -47,4 +47,8 @@ router.get("/regioes", function (req, res) {
     resultadoController.buscarRegioes(req, res);
 });
 
+router.get("/faixaetaria", function (req, res) {
+    resultadoController.buscarFaixaEtaria(req, res);
+});
+
 module.exports = router;

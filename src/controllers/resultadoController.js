@@ -118,6 +118,17 @@ function buscarRegioes(req, res) {
         });
 }
 
+function buscarFaixaEtaria(req, res) {
+    resultadoModel.buscarResultadosFaixaEtaria()
+        .then(function(faixaEtaria) {
+            res.status(200).json(faixaEtaria);
+        })
+        .catch(function(erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 
 module.exports = {
     buscarResultadosIndividuais,
@@ -129,5 +140,6 @@ module.exports = {
     buscarTiposJogo,
     buscarFrequencias,
     buscarConteudos,
-    buscarRegioes
+    buscarRegioes,
+    buscarFaixaEtaria
 }

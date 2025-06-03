@@ -24,7 +24,6 @@
                         <li><a href="./posts.html">Posts</a></li>
                         <li><a href="./sobremim.html">Sobre mim</a></li>
                         <li><a href="./estatisticas.html">Estatísticas</a></li>
-
                     </ul>
                 </div>
                 <div id="usuario" class="login-cadastro">
@@ -73,6 +72,20 @@
                     </div>
                 </div>
             </div>
+            <div class="info-cards">
+                <h2>Faixa etária dos atletas</h2>
+                <div class="conteudo-info">
+                    <div class="grafico">
+                        <canvas id="faixaEtariaGrafico"></canvas>
+                    </div>
+                    <div class="texto">
+                        <p></p>
+                        <div class="valor" id="valor">
+                            <p>A grande parte dos atletas do TopSpinTT são do nível: <span id="maiorNivel"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -87,6 +100,7 @@
     console.log(`Recuperando resultados gerais`);
     let regiao = null;
     let niveis = null;
+    let faixaEtaria = null;
 
     fetch('/resultados/regioes')
         .then(function (response) {
@@ -99,8 +113,8 @@
         })
         .then(function (dadosRegiao) {
             regiao = dadosRegiao || [];
-            if (niveis !== null) {
-                plotarGrafico({ regiao, niveis });
+            if (regiao !== null && niveis !== null && faixaEtaria !== null) {
+                plotarGrafico({ regiao, niveis, faixaEtaria });
             }
         })
         .catch(function (error) {
@@ -118,8 +132,28 @@
         })
         .then(function (dadosNiveis) {
             niveis = dadosNiveis || [];
-            if (regiao !== null) {
-                plotarGrafico({ regiao, niveis });
+            if (regiao !== null && niveis !== null && faixaEtaria !== null) {
+                plotarGrafico({ regiao, niveis, faixaEtaria });
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico (niveis): ${error.message}`);
+        });
+
+    fetch('/resultados/faixaetaria')
+        .then(function (response) {
+            if (response.ok) {
+                return response.json();
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API (niveis)');
+                return [];
+            }
+        })
+        .then(function (dadosFaixaEtaria) {
+            faixaEtaria = dadosFaixaEtaria || [];
+            console.log(`Dados recebidos: ${JSON.stringify({ regiao, niveis, faixaEtaria })}`);
+            if (regiao !== null && niveis !== null && faixaEtaria !== null) {
+                plotarGrafico({ regiao, niveis, faixaEtaria });
             }
         })
         .catch(function (error) {
@@ -128,77 +162,75 @@
     }
 
 function plotarGrafico(resposta) {
-    // Gráfico de Regiões
-    console.log(`Plotando gráficos com os dados recebidos`);
+    // Inicializa as labels antes de usar
     let labelRegiao = [];
-    const coresPorRegiao = {
-        'Norte': '#1abc9c',
-        'Nordeste': '#f1c40f',
-        'Centro-Oeste': '#e67e22',
-        'Sudeste': '#2980b9',
-        'Sul': '#8e44ad'
+    let labelNivel = [];
+    let labelFaixaEtaria = [];
+
+    const cores = {
+        regiao: ['#1abc9c', '#f1c40f', '#e67e22', '#2980b9', '#8e44ad'],
+        nivel: ['#2980b9', '#27ae60', '#e67e22', '#c0392b'],
+        faixaEtaria: ['#8e44ad', '#f1c40f', '#e67e22', '#27ae60']
     };
-    let backgroundColorsRegiao = [];
+
+    // Gráfico de Regiões
+    let regiao = resposta.regiao;
     let regiaoGrafico = {
         labels: labelRegiao,
         datasets: [{
             label: 'Regiões',
             data: [],
-            backgroundColor: backgroundColorsRegiao,
+            backgroundColor: cores.regiao,
             borderColor: '#1d1d1d',
             borderWidth: 1
         }]
     };
-    let regiao = resposta.regiao;
-    // Primeiro, somamos todos os valores para saber o total
     let totalRegiao = 0;
     for (let i = 0; i < regiao.length; i++) {
-        totalRegiao += regiao[i].total;
-    }
-    // Agora, para cada região, calculamos a porcentagem
-    for (let i = 0; i < regiao.length; i++) {
-        var registro = regiao[i];
-        labelRegiao.push(registro.Regiao);
-        let porcentagem;
-        if (totalRegiao > 0) {
-            porcentagem = ((registro.total / totalRegiao) * 100).toFixed(1);
-        } else {
-            porcentagem = 0;
-        }
-        regiaoGrafico.datasets[0].data.push(porcentagem);
-        backgroundColorsRegiao.push(coresPorRegiao[registro.Regiao] || '#cccccc');
+        var regiaoatual = regiao[i];
+        labelRegiao.push(regiaoatual.Regiao || regiaoatual.regiao);
+        regiaoGrafico.datasets[0].data.push(regiaoatual.total); // valor inteiro
+        totalRegiao += regiaoatual.total;
     }
 
     // Gráfico de Níveis
-    let labelNivel = [];
-    let backgroundColorsNivel = ['#2980b9', '#27ae60', '#e67e22', '#c0392b'];
+    let niveis = resposta.niveis;
     let nivelGrafico = {
         labels: labelNivel,
         datasets: [{
             label: 'Níveis',
             data: [],
-            backgroundColor: backgroundColorsNivel,
+            backgroundColor: cores.nivel,
         }]
     };
-    let niveis = resposta.niveis;
-    // Soma total dos níveis
     let totalNivel = 0;
     for (let i = 0; i < niveis.length; i++) {
-        totalNivel += niveis[i].total;
-    }
-    for (let i = 0; i < niveis.length; i++) {
         var nivel = niveis[i];
-        labelNivel.push(nivel.Nivel);
-        let porcentagem;
-        if (totalNivel > 0) {
-            porcentagem = ((nivel.total / totalNivel) * 100).toFixed(1);
-        } else {
-            porcentagem = 0;
-        }
-        nivelGrafico.datasets[0].data.push(porcentagem);
+        labelNivel.push(nivel.Nivel || nivel.nivel);
+        nivelGrafico.datasets[0].data.push(nivel.total); // valor inteiro
+        totalNivel += nivel.total;
     }
 
-    // Configuração dos gráficos
+    // Gráfico de Faixa Etária
+    let faixaEtaria = resposta.faixaEtaria;
+    let faixaEtariaGrafico = {
+        labels: labelFaixaEtaria,
+        datasets: [{
+            label: 'Faixa Etária',
+            data: [],
+            backgroundColor: cores.faixaEtaria,
+        }]
+    };
+    let totalFaixaEtaria = 0;
+    for (let i = 0; i < faixaEtaria.length; i++) {
+        var faixa = faixaEtaria[i];
+        labelFaixaEtaria.push(faixa.FaixaEtaria || faixa.faixaEtaria);
+        faixaEtariaGrafico.datasets[0].data.push(faixa.total);
+        totalFaixaEtaria += faixa.total;
+    }
+
+
+
     const configRegiao = {
         type: 'pie',
         data: regiaoGrafico,
@@ -216,18 +248,16 @@ function plotarGrafico(resposta) {
                         label: function(context) {
                             let label = context.label || '';
                             let index = context.dataIndex;
-                            let valorAbsoluto;
-                            if (regiao[index]) {
-                                valorAbsoluto = regiao[index].total;
-                            } else {
-                                valorAbsoluto = 0;
-                            }
+                            let valorAbsoluto = regiao[index].total;
                             let value = context.parsed;
-                            return `${label}: ${value}% (${valorAbsoluto})`;
+                            let porcentagem = parseFloat((valorAbsoluto / totalRegiao) * 100);
+                            return `${label}: ${valorAbsoluto} (${porcentagem}%)`;
                         }
                     }
                 }
-            }
+            },
+            // Adiciona cor de fundo do gráfico
+            backgroundColor: '#222', // cor escura para fundo do gráfico
         }
     };
 
@@ -244,14 +274,10 @@ function plotarGrafico(resposta) {
                         label: function(context) {
                             let label = context.label || '';
                             let index = context.dataIndex;
-                            let valorAbsoluto;
-                            if (regiao[index]) {
-                                valorAbsoluto = regiao[index].total;
-                            } else {
-                                valorAbsoluto = 0;
-                            }
+                            let valorAbsoluto = niveis[index].total;
                             let value = context.raw;
-                            return `${label}: ${value}% (${valorAbsoluto})`;
+                            let porcentagem = parseFloat((valorAbsoluto / totalNivel) * 100);
+                            return `${label}: ${valorAbsoluto} (${porcentagem}%)`;
                         }
                     },
                     bodyColor: '#fff'
@@ -260,20 +286,72 @@ function plotarGrafico(resposta) {
             scales: {
             x: {
                 ticks: {
-                    color: '#fff' // Cor dos labels do eixo X
+                    color: '#fff'
+                },
+                grid: {
+                    color: '#444' // cor das linhas de grade verticais
                 }
             },
             y: {
                 ticks: {
-                    color: '#fff' // Cor dos números do eixo Y
+                    color: '#fff'
+                },
+                grid: {
+                    color: '#444' // cor das linhas de grade horizontais
                 }
             }
             },
+            backgroundColor: '#222', // cor de fundo do gráfico
         }
     };
-    // Renderiza os dois gráficos
+
+    const configFaixaEtaria = {
+        type: 'bar',
+        data: faixaEtariaGrafico,
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.label || '';
+                            let index = context.dataIndex;
+                            let valorAbsoluto = faixaEtaria[index].total;
+                            let value = context.raw;
+                            let porcentagem = parseFloat((valorAbsoluto / totalFaixaEtaria) * 100);
+                            return `${label}: ${valorAbsoluto} (${porcentagem}%)`;
+                        }
+                    },
+                    bodyColor: '#fff'
+                }
+            },
+            scales: {
+            x: {
+                ticks: {
+                    color: '#fff'
+                },
+                grid: {
+                    color: '#444' // cor das linhas de grade verticais
+                }
+            },
+            y: {
+                ticks: {
+                    color: '#fff'
+                },
+                grid: {
+                    color: '#444' // cor das linhas de grade horizontais
+                }
+            }
+            },
+            backgroundColor: '#222', // cor de fundo do gráfico
+        }
+    };
+
     new Chart(document.getElementById('regiaoGrafico'), configRegiao);
     new Chart(document.getElementById('nivelGrafico'), configNivel);
+    new Chart(document.getElementById('faixaEtariaGrafico'), configFaixaEtaria);
 }
 
 </script>
