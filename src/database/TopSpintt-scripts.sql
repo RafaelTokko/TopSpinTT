@@ -71,19 +71,22 @@ CREATE TABLE pesquisa (
     CONSTRAINT chk_r5 CHECK(r5 IN ('Clássico', 'Caneta', 'Classineta')),
     CONSTRAINT chk_r6 CHECK(r6 IN ('Ofensivo', 'Defensivo', 'Allround')),
     CONSTRAINT chk_r7 CHECK(r7 IN ('Nunca joguei', 'Menos de uma vez por semana', 'Uma vez por semana', 'Duas a três vezes por semana', 'Mais de três vezes por semana')),
-    CONSTRAINT chk_r8 CHECK(r8 IN ('Regras', 'Equipamentos', 'Técnicas', 'Treinos', 'Estatísticas', 'Outros'))
+    CONSTRAINT chk_r8 CHECK(r8 IN ('Regras', 'Equipamentos', 'Técnicas', 'Treinos', 'Outros'))
 );
 
-INSERT INTO regiao (nome, sigla) VALUES
+INSERT INTO regiao (nome, sigla)
+	VALUES
     ('Norte', 'N'),
     ('Nordeste', 'NE'),
     ('Centro-Oeste', 'CO'),
     ('Sudeste', 'SE'),
     ('Sul', 'S');
 
-INSERT INTO estado (nome, sigla, fkRegiao) VALUES
+INSERT INTO estado (nome, sigla, fkRegiao)
+	VALUES
     ('Acre', 'AC', 1),
     ('Alagoas', 'AL', 2),
+    ('Amapá', 'AP', 2),
     ('Amazonas', 'AM', 1),
     ('Bahia', 'BA', 2),
     ('Ceará', 'CE', 2),
@@ -111,15 +114,21 @@ INSERT INTO estado (nome, sigla, fkRegiao) VALUES
     
 INSERT INTO tema (nome) 
 	VALUES
+    -- nivel
     ('Iniciante'),
     ('Intermediário'),
     ('Avançado'),
-    ('Equipamento'),
-    ('Técnica'),
-    ('Treino'),
-    ('Regras'),
+    -- conteudo
+    ('Equipamentos'),
     ('Jogadores Profissionais'),
-    ('Notícias');
+    ('Notícias'),
+    ('Regras'),
+    ('Técnicas'),
+    ('Torneios'),
+    ('Treinos');
+    
+    
+    
 
 SELECT * FROM usuario;
 select * from estado;
@@ -157,44 +166,51 @@ INSERT INTO usuario (nome, email, dataNasc, senha_hash)
     ('Fábio Souza', 'fabio.souza@email.com', '1984-02-02', SHA2('senhaFabio', 256)),
     ('Vanessa Araújo', 'vanessa.araujo@email.com', '2000-07-14', SHA2('senhaVanessa', 256)),
     ('Bruno Teixeira', 'bruno.teixeira@email.com', '1991-12-03', SHA2('senhaBrunoT', 256)),
-    ('Bruno Teixeira', 'bruno.teixeira@email.com', '1991-12-03', SHA2('senhaBrunoT', 256));
+    ('Vanessa Araújo', 'vanessa.araujo@email.com', '2000-07-14', SHA2('senhaVanessa', 256));
 
 -- Pesquisas respondidas de exemplo (uma por usuário)
 INSERT INTO pesquisa (fkUsuario, r1, r2, r3, r4, r5, r6, r7, r8)
     VALUES
-    (1, 24, 'Competição', 'Avançado', 'Mais de 10 anos', 'Clássico', 'Ofensivo', 'Mais de três vezes por semana', 'Técnicas'),
-    (2, 12, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Defensivo', 'Uma vez por semana', 'Equipamentos'),
-    (3, 5, 'Socialização', 'Intermediário', '5 a 10 anos', 'Classineta', 'Allround', 'Duas a três vezes por semana', 'Treinos'),
+    (1, 21, 'Competição', 'Avançado', 'Mais de 10 anos', 'Clássico', 'Allround', 'Mais de três vezes por semana', 'Técnicas'),
+    (2, 12, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Ofensivo', 'Uma vez por semana', 'Equipamentos'),
+    (3, 5, 'Socialização', 'Intermediário', '5 a 10 anos', 'Classineta', 'Ofensivo', 'Duas a três vezes por semana', 'Treinos'),
     (4, 18, 'Condicionamento físico', 'Intermediário', 'Menos de 1 ano', 'Clássico', 'Ofensivo', 'Menos de uma vez por semana', 'Regras'),
-    (5, 9, 'Competição', 'Profissional', 'Mais de 10 anos', 'Caneta', 'Ofensivo', 'Mais de três vezes por semana', 'Estatísticas'),
-    (6, 1, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Defensivo', 'Uma vez por semana', 'Outros'),
-    (7, 15, 'Socialização', 'Intermediário', '5 a 10 anos', 'Classineta', 'Allround', 'Duas a três vezes por semana', 'Treinos'),
-    (8, 20, 'Condicionamento físico', 'Intermediário', 'Menos de 1 ano', 'Clássico', 'Ofensivo', 'Menos de uma vez por semana', 'Regras'),
+    (5, 9, 'Competição', 'Profissional', 'Mais de 10 anos', 'Caneta', 'Ofensivo', 'Mais de três vezes por semana', 'Equipamentos'),
+    (6, 1, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Ofensivo', 'Uma vez por semana', 'Outros'),
+    (7, 15, 'Socialização', 'Intermediário', '5 a 10 anos', 'Classineta', 'Defensivo', 'Duas a três vezes por semana', 'Treinos'),
+    (8, 20, 'Condicionamento físico', 'Intermediário', 'Menos de 1 ano', 'Clássico', 'Allround', 'Menos de uma vez por semana', 'Regras'),
     (9, 23, 'Competição', 'Profissional', 'Mais de 10 anos', 'Caneta', 'Ofensivo', 'Mais de três vezes por semana', 'Técnicas'),
-    (10, 7, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Defensivo', 'Uma vez por semana', 'Equipamentos'),
-    (11, 24, 'Competição', 'Avançado', 'Mais de 10 anos', 'Clássico', 'Ofensivo', 'Mais de três vezes por semana', 'Técnicas'),
-    (12, 12, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Defensivo', 'Uma vez por semana', 'Equipamentos'),
+    (10, 7, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Allround', 'Uma vez por semana', 'Equipamentos'),
+    (11, 7, 'Competição', 'Avançado', 'Mais de 10 anos', 'Clássico', 'Defensivo', 'Mais de três vezes por semana', 'Técnicas'),
+    (12, 12, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Ofensivo', 'Uma vez por semana', 'Equipamentos'),
     (13, 5, 'Socialização', 'Intermediário', '5 a 10 anos', 'Classineta', 'Allround', 'Duas a três vezes por semana', 'Treinos'),
-    (14, 18, 'Condicionamento físico', 'Intermediário', 'Menos de 1 ano', 'Clássico', 'Ofensivo', 'Menos de uma vez por semana', 'Regras'),
-    (15, 9, 'Competição', 'Profissional', 'Mais de 10 anos', 'Caneta', 'Ofensivo', 'Mais de três vezes por semana', 'Estatísticas'),
+    (14, 18, 'Condicionamento físico', 'Intermediário', 'Menos de 1 ano', 'Clássico', 'Allround', 'Menos de uma vez por semana', 'Regras'),
+    (15, 9, 'Competição', 'Profissional', 'Mais de 10 anos', 'Caneta', 'Ofensivo', 'Mais de três vezes por semana', 'Regras'),
     (16, 1, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Defensivo', 'Uma vez por semana', 'Outros'),
-    (17, 15, 'Socialização', 'Intermediário', '5 a 10 anos', 'Classineta', 'Allround', 'Duas a três vezes por semana', 'Treinos'),
+    (17, 15, 'Socialização', 'Intermediário', '5 a 10 anos', 'Classineta', 'Ofensivo', 'Duas a três vezes por semana', 'Treinos'),
     (18, 20, 'Condicionamento físico', 'Intermediário', 'Menos de 1 ano', 'Clássico', 'Ofensivo', 'Menos de uma vez por semana', 'Regras'),
-    (19, 24, 'Competição', 'Avançado', 'Mais de 10 anos', 'Clássico', 'Ofensivo', 'Mais de três vezes por semana', 'Técnicas'),
+    (19, 24, 'Competição', 'Avançado', 'Mais de 10 anos', 'Clássico', 'Defensivo', 'Mais de três vezes por semana', 'Técnicas'),
     (20, 24, 'Socialização', 'Intermediário', '5 a 10 anos', 'Classineta', 'Allround', 'Duas a três vezes por semana', 'Treinos'),
-    (21, 24, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Defensivo', 'Uma vez por semana', 'Equipamentos'),
-    (22, 24, 'Condicionamento físico', 'Intermediário', '1 a 5 anos', 'Clássico', 'Ofensivo', 'Uma vez por semana', 'Outros'),
-    (23, 24, 'Competição', 'Profissional', 'Mais de 10 anos', 'Clássico', 'Ofensivo', 'Mais de três vezes por semana', 'Estatísticas'),
-    (24, 24, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Defensivo', 'Uma vez por semana', 'Regras'),
+    (21, 24, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Ofensivo', 'Uma vez por semana', 'Equipamentos'),
+    (22, 21, 'Condicionamento físico', 'Intermediário', '1 a 5 anos', 'Clássico', 'Ofensivo', 'Uma vez por semana', 'Outros'),
+    (23, 24, 'Competição', 'Profissional', 'Mais de 10 anos', 'Clássico', 'Defensivo', 'Mais de três vezes por semana', 'Técnicas'),
+    (24, 24, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Ofensivo', 'Uma vez por semana', 'Regras'),
     (25, 8, 'Socialização', 'Intermediário', '5 a 10 anos', 'Classineta', 'Allround', 'Duas a três vezes por semana', 'Treinos'),
-    (26, 8, 'Lazer', 'Iniciante', 'Menos de 1 ano', 'Caneta', 'Defensivo', 'Menos de uma vez por semana', 'Outros'),
-    (27, 21, 'Competição', 'Avançado', '5 a 10 anos', 'Clássico', 'Ofensivo', 'Mais de três vezes por semana', 'Técnicas');
-
-
+    (26, 8, 'Lazer', 'Iniciante', 'Menos de 1 ano', 'Caneta', 'Allround', 'Menos de uma vez por semana', 'Outros');
+    
 SELECT
-        r.nome as regiao, count(*) as total
+        e.nome as regiao, count(*) as total
         FROM pesquisa
         INNER JOIN estado e ON pesquisa.r1 = e.id
         INNER JOIN regiao r ON e.fkRegiao = r.id
-        GROUP BY r.nome
+        GROUP BY e.nome
         ORDER BY total DESC;
+        
+        
+SELECT
+        r5, r6, count(*) as total
+        FROM pesquisa
+        INNER JOIN estado e ON pesquisa.r1 = e.id
+        INNER JOIN regiao r ON e.fkRegiao = r.id
+        GROUP BY r5, r6
+	ORDER BY total DESC;
