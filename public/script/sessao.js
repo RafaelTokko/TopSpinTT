@@ -16,7 +16,7 @@ function validarSessao() {
         console.log("Usuário já logado");
     usuario.innerHTML = `
       <ul>
-        <li class="user">Olá<p>, ${nome}</p></li>
+        <li class="user"><p>${nome}</p></li>
         <li><a class="sair" href="#" onclick="sair()">Sair<span class="icone-sair"></span></a></li>
       </ul>
     `;

@@ -20,7 +20,7 @@ function buscarResultadosIndividuais(req, res) {
 }
 
 function buscarEstados(req, res) {
-    resultadoModel.buscarResultadosGerais('r1', 'Estado')
+    resultadoModel.buscarResultadosGerais('e.nome', 'Estado')
         .then(function(estados) {
             res.status(200).json(estados);
         })

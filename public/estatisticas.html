@@ -52,9 +52,23 @@
                     <div class="grafico">
                         <canvas id="regiaoGrafico"></canvas>
                     </div>
-                    <div class="texto">
-                        <p>Veja a distribuição geográfica dos jogadores que responderam à pesquisa. Isso pode ajudar a entender onde o tênis de mesa é mais popular e onde há mais oportunidades para eventos e competições.</p>
-                        <p>A maior parte dos nossos jogadores são da Região: <span id="maiorRegiao"></span></p>
+                    <div class="info-kpi">
+                      <div class="card a">
+                        <h3>Estado com mais jogadores:</h3>
+                        <div class="kpi">
+                          <div class="valor" id="valor">
+                            <p id="maiorEstado"></p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <h3>Estado com menos jogadores:</h3>
+                        <div class="kpi">
+                          <div class="valor" id="valor">
+                            <p id="menorEstado"></p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                 </div>
             </div>
@@ -67,7 +81,8 @@
                     <div class="texto">
                         <p>Descubra como os participantes do site se distribuem entre os diferentes níveis de habilidade. Assim, você pode comparar seu progresso com outros jogadores e encontrar conteúdos adequados para o seu momento no tênis de mesa.</p>
                         <div class="valor" id="valor">
-                            <p>A grande parte dos atletas do TopSpinTT são do nível: <span id="maiorNivel"></span></p>
+                            <h3></h3>
+                            <p></p>
                         </div>
                     </div>
                 </div>
@@ -79,10 +94,23 @@
                         <canvas id="faixaEtariaGrafico"></canvas>
                     </div>
                     <div class="texto">
-                        <p>Veja como os atletas do TopSpinTT estão distribuídos por faixa etária. Esses dados ajudam a entender quais grupos de idade mais praticam tênis de mesa no nosso site, permitindo criar conteúdos e eventos mais direcionados para cada público.</p>
-                        <div class="valor" id="valor">
-                            <p>A grande parte dos atletas do TopSpinTT são do nível: <span id="maiorNivel"></span></p>
+                        <div class="kpi">
+                            <h2></h2>
+                            <div class="valor" id="valor">
+                              
+                            </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="info-cards">
+                <h2>Tipos de Jogo</h2>
+                <div class="conteudo-info">
+                    <div class="grafico">
+                        <canvas id="tiposJogoGrafico"></canvas>
+                    </div>
+                    <div class="texto">
+                        <p>Veja como os jogadores do site se distribuem entre os diferentes tipos de jogo (Ofensivo, Defensivo, Allround). Isso pode ajudar você a entender tendências e encontrar dicas específicas para seu tipo!</p>
                     </div>
                 </div>
             </div>
@@ -101,6 +129,7 @@
     let regiao = null;
     let niveis = null;
     let faixaEtaria = null;
+    let tiposJogo = null;
 
     fetch('/resultados/regioes')
         .then(function (response) {
@@ -112,9 +141,9 @@
             }
         })
         .then(function (dadosRegiao) {
-            regiao = dadosRegiao || [];
-            if (regiao !== null && niveis !== null && faixaEtaria !== null) {
-                plotarGrafico({ regiao, niveis, faixaEtaria });
+            regiao = dadosRegiao[0];
+            if (regiao !== null && niveis !== null && faixaEtaria !== null && tiposJogo !== null) {
+                plotarGrafico({ regiao, niveis, faixaEtaria, tiposJogo });
             }
         })
         .catch(function (error) {
@@ -131,9 +160,9 @@
             }
         })
         .then(function (dadosNiveis) {
-            niveis = dadosNiveis || [];
-            if (regiao !== null && niveis !== null && faixaEtaria !== null) {
-                plotarGrafico({ regiao, niveis, faixaEtaria });
+            niveis = dadosNiveis[0];
+            if (regiao !== null && niveis !== null && faixaEtaria !== null && tiposJogo !== null) {
+                plotarGrafico({ regiao, niveis, faixaEtaria, tiposJogo });
             }
         })
         .catch(function (error) {
@@ -150,27 +179,67 @@
             }
         })
         .then(function (dadosFaixaEtaria) {
-            faixaEtaria = dadosFaixaEtaria || [];
+            faixaEtaria = dadosFaixaEtaria;
             console.log(`Dados recebidos: ${JSON.stringify({ regiao, niveis, faixaEtaria })}`);
-            if (regiao !== null && niveis !== null && faixaEtaria !== null) {
-                plotarGrafico({ regiao, niveis, faixaEtaria });
+            if (regiao !== null && niveis !== null && faixaEtaria !== null && tiposJogo !== null) {
+                plotarGrafico({ regiao, niveis, faixaEtaria, tiposJogo });
             }
         })
         .catch(function (error) {
             console.error(`Erro na obtenção dos dados p/ gráfico (niveis): ${error.message}`);
         });
+
+        fetch('/resultados/estados')
+    .then(function (response) {
+        if (response.ok) {
+            return response.json()
+            .then(function(estados) {
+                    let estadoMax = estados[1].Estado;
+                    let valorMax = estados[1].total;
+                    let estadoMin = estados[2].Estado;
+                    let valorMin = estados[2].total;
+                    maiorEstado.innerHTML = `${estadoMax} (${valorMax})`;
+                    menorEstado.innerHTML = `${estadoMin} (${valorMin})`;
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API (maiorEstado)');
+        }
+    })
+    .catch(function (error) {
+        console.error('Erro ao buscar maiorEstado:', error);
+    });
+
+    fetch('/resultados/tiposJogo')
+        .then(function (response) {
+            if (response.ok) {
+                return response.json();
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API (tiposJogo)');
+                return [];
+            }
+        })
+        .then(function (dadosTiposJogo) {
+            tiposJogo = dadosTiposJogo[0];
+            if (regiao !== null && niveis !== null && faixaEtaria !== null && tiposJogo !== null) {
+                plotarGrafico({ regiao, niveis, faixaEtaria, tiposJogo });
+            }
+        })
+        .catch(function (error) {
+            console.error('Erro na obtenção dos dados p/ gráfico (tiposJogo): ' + error.message);
+        });
     }
 
 function plotarGrafico(resposta) {
-    // Inicializa as labels antes de usar
     let labelRegiao = [];
     let labelNivel = [];
     let labelFaixaEtaria = [];
+    let labeltipos = [];
 
     const cores = {
         regiao: ['#1abc9c', '#f1c40f', '#e67e22', '#2980b9', '#8e44ad'],
         nivel: ['#2980b9', '#27ae60', '#e67e22', '#c0392b'],
-        faixaEtaria: ['#8e44ad', '#f1c40f', '#e67e22', '#27ae60']
+        faixaEtaria: ['#8e44ad', '#f1c40f', '#e67e22', '#27ae60'],
+        tipoJogo: ['#e67e22', '#2980b9', '#27ae60']
     };
 
     // Gráfico de Regiões
@@ -229,7 +298,23 @@ function plotarGrafico(resposta) {
         totalFaixaEtaria += faixa.total;
     }
 
-
+    // Gráfico de tipos de Jogo
+    let tiposJogo = resposta.tiposJogo || [];
+    let tiposJogoGrafico = {
+        labels: labeltipos,
+        datasets: [{
+            label: 'tipos de Jogo',
+            data: [],
+            backgroundColor: ['#e67e22', '#2980b9', '#27ae60'],
+        }]
+    };
+    let totaltipos = 0;
+    for (let i = 0; i < tiposJogo.length; i++) {
+        var tipo = tiposJogo[i];
+        labeltipos.push(tipo.TipoJogo || tipo.tipoJogo);
+        tiposJogoGrafico.datasets[0].data.push(tipo.total);
+        totaltipos += tipo.total;
+    }
 
     const configRegiao = {
         type: 'pie',
@@ -349,9 +434,37 @@ function plotarGrafico(resposta) {
         }
     };
 
+    const configTiposJogo = {
+        type: 'bar',
+        data: tiposJogoGrafico,
+        options: {
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.label || '';
+                            let index = context.dataIndex;
+                            let valorAbsoluto = tiposJogo[index].total;
+                            let porcentagem = ((valorAbsoluto / totaltipos) * 100).toFixed(2);
+                            return `${label}: ${valorAbsoluto} (${porcentagem}%)`;
+                        }
+                    },
+                    bodyColor: '#fff'
+                }
+            },
+            scales: {
+                x: { ticks: { color: '#fff' }, grid: { color: '#444' } },
+                y: { ticks: { color: '#fff' }, grid: { color: '#444' } }
+            },
+            backgroundColor: '#222',
+        }
+    };
+
     new Chart(document.getElementById('regiaoGrafico'), configRegiao);
     new Chart(document.getElementById('nivelGrafico'), configNivel);
     new Chart(document.getElementById('faixaEtariaGrafico'), configFaixaEtaria);
+    new Chart(document.getElementById('tiposJogoGrafico'), configTiposJogo);
 }
 
 </script>

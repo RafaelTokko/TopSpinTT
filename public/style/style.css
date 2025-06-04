@@ -81,10 +81,11 @@ nav .login-cadastro ul li.user{
 }
 nav .login-cadastro ul li p {
     font-weight: 500;
+    font-size: 21px;
 }
 
 nav .login-cadastro ul a.sair{
-    font-size: 14px;
+    font-size: 21px;
     padding: 3px 6px;
     margin: 0;
 }
@@ -96,8 +97,8 @@ nav .login-cadastro ul a.sair:hover {
 
 .icone-sair {
     display: inline-block;
-    width: 16px;
-    height: 16px;
+    width: 19px;
+    height: 19px;
     background-image: url('../assets/iconesair.png');
     background-size: contain;
     background-repeat: no-repeat;

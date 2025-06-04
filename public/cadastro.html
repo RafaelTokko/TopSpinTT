@@ -45,10 +45,6 @@
 <script>
   validarSessaoLogin()
     function cadastrar() {
-      // aguardar();
-  
-      //Recupere o valor da nova input pelo nome do id
-      // Agora vá para o método fetch logo abaixo
       var nomeipt = ipt_nome.value;
       var emailipt = ipt_email.value;
       var senhaipt = ipt_senha.value;
@@ -84,8 +80,6 @@
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          // crie um atributo que recebe o valor recuperado aqui
-          // Agora vá para o arquivo routes/usuario.js
           nomeServer: nomeipt,
           emailServer: emailipt,
           dataNascServer: dataNascipt,
