@@ -70,26 +70,26 @@
                 conteudo.innerHTML = '';
                 response.json().then(function (resposta) {
                     let post = resposta[0];
+                    console.log(post.data_criacao);
                     titulo.innerHTML = post.titulo;
-                    data.innerHTML = 'a'
+                    data.innerHTML = formatarData(post.data_criacao);
                     capa.innerHTML = `<img src="${post.capa}" alt="Capa do post">`;
                     conteudo.innerHTML = post.conteudo;
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
-                conteudoposts.innerHTML = `                    
-                <div class="conteudo-posts">
-                        <div class="titulo"><h2 id="titulo" style="font-size: 30;">Página não encontrada :( </h2></div>
-                </div>`;
             }
         })
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ post: ${error.message}`);
-                conteudoposts.innerHTML = `                    
-                <div class="conteudo-posts">
-                        <div class="titulo"><h2 id="titulo" style="font-size: 30;">Página não encontrada :( </h2></div>
-                </div>`;
             });
+    }
+
+    function formatarData(data) {
+        // Garante que só pega a parte da data (YYYY-MM-DD)
+        let valor = data.split('T')[0];
+        const [ano, mes, dia] = valor.split('-');
+        return `${dia}/${mes}/${ano}`;
     }
 </script>
 </html>

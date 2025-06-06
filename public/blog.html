@@ -44,42 +44,6 @@
                         <p>Aqui você encontra conteúdo pra todos os lados do tênis de mesa — técnica, equipamentos, curiosidades e mais.</p>
                     </div>
                     <div class="posts-list" id="posts-list">
-                        <div class="post-cards">
-                            <img src="assets/malong.jpg" alt="Ma Long playing table tennis">
-                            <h3>How To Defeat Your Table Tennis Nemesis</h3>
-                            <p>The following blog post was written by table tennis player and coach Matt Hetherington and describes his experience of finally defeating his unnamed table tennis nemesis. Have you ever had an opponent who you just can’t seem to beat? Someone...</p>
-                            <a href="#">Leia mais</a>
-                        </div>
-                        <div class="post-cards">
-                            <img src="assets/tenisdemesa_20221017.webp" alt="Table tennis player resting">
-                            <h3>Table Tennis Burnout and When to Take a Break</h3>
-                            <p>The following blog post was written by table tennis player and coach Matt Hetherington and describes his personal experiences of table tennis burnout and the need to take a break every once in a while. I’m going to talk about...</p>
-                            <a href="#">Leia mais</a>
-                        </div>
-                        <div class="post-cards">
-                            <img src="assets/calderano-forehand.jpg" alt="Liam Pitchford behind-the-back shot">
-                            <h3>How to do the “Behind-the-Back” Shot like Liam Pitchford</h3>
-                            <p>Liam Pitchford has become known as something of a master at the “behind-the-back” table tennis shot. In fact, he pulled it off twice against the legend that is Jun Mizutani! It’s pretty impressive to be able to pull it off...</p>
-                            <a href="#">Leia mais</a>
-                        </div>
-                        <div class="post-cards">
-                            <img src="assets/fanzhendong.jpg" alt="Fan Zhendong serving">
-                            <h3>Fan Zhendong: The Art of the Power Serve</h3>
-                            <p>Fan Zhendong is renowned for his explosive serves and aggressive play style. In this post, we break down his signature power serve and give tips on how you can add more speed and spin to your own game.</p>
-                            <a href="#">Leia mais</a>
-                        </div>
-                        <div class="post-cards">
-                            <img src="assets/calderano.jpg" alt="Hugo Calderano celebrating">
-                            <h3>Hugo Calderano: Brazil’s Table Tennis Star</h3>
-                            <p>Discover the journey of Hugo Calderano, Brazil’s top table tennis player, from his early days to competing among the world’s elite. Learn about his training, mindset, and what makes him a fan favorite.</p>
-                            <a href="#">Leia mais</a>
-                        </div>
-                        <div class="post-cards">
-                            <img src="assets/placar.jpg" alt="Table tennis scoreboard">
-                            <h3>Understanding Table Tennis Scoring</h3>
-                            <p>Confused about how scoring works in table tennis? This post explains the rules, common mistakes, and tips to keep track of your matches like a pro.</p>
-                            <a href="#">Leia mais</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -87,7 +51,10 @@
     </main>
     
     <footer>
-        
+        <div class="footer-content">
+            <p>&copy; 2025 TopSpinTT &mdash; Todos os direitos reservados.</p>
+            <p>Desenvolvido por entusiastas do tênis de mesa.</p>
+        </div>
     </footer>
 </body>
 <script>
@@ -103,10 +70,12 @@
                         for (let i = 0; i < resposta.length; i++) {
                             posts.innerHTML += `
                             <div class="post-cards">                            
+                                <a href="./post.html?id=${resposta[i].id}">
                                     <img src="${resposta[i].capa}" alt="${resposta[i].titulo}">
-                                    <h3>${resposta[i].titulo}</h3>
-                                    <p>${resposta[i].descricao}</p>
-                                    <a href="./post.html?id=${resposta[i].id}">Leia mais</a>
+                                </a>
+                                <h3>${resposta[i].titulo}</h3>
+                                <p>${resposta[i].descricao}</p>
+                                <div class="botaomudar"><a href="./post.html?id=${resposta[i].id}">Leia mais</a></div>
                             </div>                                
                             `;
                         }
@@ -114,14 +83,18 @@
 
 
                     } else {
-                        posts.innerHTML = '<p>Nenhuma resposta obtida.</p>';
+                        posts.innerHTML = '<ph1>Nenhuma resposta obtida.</h1>';
                     }
                 });
             } else {
                 console.error('Erro ao obter os posts:', response.statusText);
+                        posts.innerHTML = '<h1>Nenhuma resposta obtida.</h1>';
+
             }
         }).catch(function (error) {
             console.error('Erro na requisição:', error);
+                        posts.innerHTML = '<h1>Nenhuma resposta obtida.</h1>';
+
         });
     }
 </script>
