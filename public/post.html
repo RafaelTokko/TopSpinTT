@@ -41,7 +41,7 @@
                 <div class="tela-posts">
                     <div class="conteudo-posts" id="conteudoposts">
                         <div class="titulo"><h2 id="titulo"></h2></div>
-                        <div class="info"><a href="./blog.html">Voltar</a><div class="data" id="data">dasdas</div></div>
+                        <div class="info"><a href="./blog.html">Voltar</a><div class="data" id="data"></div></div>
                         <div class="posts-banner" id="capa"></div>
                         <div class="conteudo" id="conteudo">
                         </div>
@@ -78,10 +78,12 @@
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
+                titulo.innerHTML = '<h2>Erro ao carregar o post :(</h2><p>Por favor, tente novamente mais tarde.</p>';
             }
         })
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ post: ${error.message}`);
+                titulo.innerHTML = '<h2>Erro ao carregar o post :(</h2><p>Por favor, tente novamente mais tarde.</p>';
             });
     }
 
