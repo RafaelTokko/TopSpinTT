@@ -139,8 +139,11 @@ body {
 .estatisticas-banner .texto-banner-estatistica {
     width: 40%;
     font-size: 25px;
-    margin: 30px 0 0 50px;
+    margin: 0px 0 0 50px;
     color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .estatisticas-banner .texto-banner-estatistica h2 {
