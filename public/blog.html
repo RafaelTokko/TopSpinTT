@@ -96,20 +96,23 @@
         const posts = document.getElementById('posts-list');
         fetch("/posts/geral").then(function (response) {
             if (response.ok) {
-                response.json().then(function (data) {
-                    if (data.length > 0) {
+                response.json().then(function (resposta) {
+                    if (resposta.length > 0) {
                         posts.innerHTML = '';
-                        data.forEach(post => {
+
+                        for (let i = 0; i < resposta.length; i++) {
                             posts.innerHTML += `
-                        <div class="post-cards">                            
-                                <img src="${post.image}" alt="${post.title}">
-                                <h3>${post.title}</h3>
-                                <p>${post.description}</p>
-                                <a href="${post.link}">Read More</a>
-                        </div>                                
+                            <div class="post-cards">                            
+                                    <img src="${resposta[i].capa}" alt="${resposta[i].titulo}">
+                                    <h3>${resposta[i].titulo}</h3>
+                                    <p>${resposta[i].descricao}</p>
+                                    <a href="./post.html?id=${resposta[i].id}">Leia mais</a>
+                            </div>                                
                             `;
-                            posts.appendChild(postCard);
-                        });
+                        }
+
+
+
                     } else {
                         posts.innerHTML = '<p>Nenhuma resposta obtida.</p>';
                     }
