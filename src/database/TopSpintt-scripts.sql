@@ -74,58 +74,8 @@ CREATE TABLE pesquisa (
     CONSTRAINT chk_r8 CHECK(r8 IN ('Regras', 'Equipamentos', 'Técnicas', 'Treinos', 'Outros'))
 );
 
-INSERT INTO regiao (nome, sigla)
-	VALUES
-    ('Norte', 'N'),
-    ('Nordeste', 'NE'),
-    ('Centro-Oeste', 'CO'),
-    ('Sudeste', 'SE'),
-    ('Sul', 'S');
 
-INSERT INTO estado (nome, sigla, fkRegiao)
-	VALUES
-    ('Acre', 'AC', 1),
-    ('Alagoas', 'AL', 2),
-    ('Amapá', 'AP', 2),
-    ('Amazonas', 'AM', 1),
-    ('Bahia', 'BA', 2),
-    ('Ceará', 'CE', 2),
-    ('Distrito Federal', 'DF', 3),
-    ('Espírito Santo', 'ES', 4),
-    ('Goiás', 'GO', 3),
-    ('Maranhão', 'MA', 2),
-    ('Mato Grosso', 'MT', 3),
-    ('Mato Grosso do Sul', 'MS', 3),
-    ('Minas Gerais', 'MG', 4),
-    ('Pará', 'PA', 1),
-    ('Paraíba', 'PB', 2),
-    ('Paraná', 'PR', 5),
-    ('Pernambuco', 'PE', 2),
-    ('Piauí', 'PI', 2),
-    ('Rio de Janeiro', 'RJ', 4),
-    ('Rio Grande do Norte', 'RN', 2),
-    ('Rio Grande do Sul', 'RS', 5),
-    ('Rondônia', 'RO', 1),
-    ('Roraima', 'RR', 1),
-    ('Santa Catarina', 'SC', 5),
-    ('São Paulo', 'SP', 4),
-    ('Sergipe', 'SE', 2),
-    ('Tocantins', 'TO', 1);
-    
-INSERT INTO tema (nome) 
-	VALUES
-    -- nivel
-    ('Iniciante'),
-    ('Intermediário'),
-    ('Avançado'),
-    -- conteudo
-    ('Equipamentos'),
-    ('Jogadores Profissionais'),
-    ('Notícias'),
-    ('Regras'),
-    ('Técnicas'),
-    ('Torneios'),
-    ('Treinos');
+
     
     
     
@@ -137,66 +87,6 @@ select * from pesquisa;
 
 select * from usuario;
 select * from pesquisa;
-
-
-INSERT INTO usuario (nome, email, dataNasc, senha_hash)
-    VALUES
-    ('Rafael', 'rafael@gmail.com', '2006-08-15', SHA2('123',256)),
-    ('Ana', 'ana@email.com', '1998-04-22', SHA2('senhaana',256)),
-    ('Carlos', 'carlos@email.com', '1990-12-01', SHA2('senhacarlos',256)),
-    ('Beatriz', 'bia@email.com', '2002-07-30', SHA2('senhabia',256)),
-    ('João', 'joao@email.com', '1985-03-10', SHA2('senhajoao',256)),
-    ('Marina', 'marina@email.com', '2001-11-05', SHA2('senhamarina',256)),
-    ('Lucas', 'lucas@email.com', '1995-02-17', SHA2('senhalucas',256)),
-    ('Paula', 'paula@email.com', '1988-09-23', SHA2('senhapaula',256)),
-    ('Felipe', 'felipe@email.com', '1993-06-12', SHA2('senhafelipe',256)),
-    ('Juliana', 'juliana@email.com', '2000-01-30', SHA2('senhajuliana',256)),
-    ('Bruno Silva', 'bruno.silva@email.com', '2015-05-10', SHA2('senhaBruno',256)),
-    ('Camila Souza', 'camila.souza@email.com', '2010-06-11', SHA2('senhaCamila',256)),
-    ('Eduardo Lima', 'eduardo.lima@email.com', '1970-07-12', SHA2('senhaEduardo',256)),
-    ('Fernanda Alves', 'fernanda.alves@email.com', '1980-08-13', SHA2('senhaFernanda',256)),
-    ('Gabriel Costa', 'gabriel.costa@email.com', '2008-09-14', SHA2('senhaGabriel',256)),
-    ('Helena Martins', 'helena.martins@email.com', '1960-10-15', SHA2('senhaHelena',256)),
-    ('Igor Pereira', 'igor.pereira@email.com', '2005-11-16', SHA2('senhaIgor',256)),
-    ('Juliana Rocha', 'juliana.rocha@email.com', '1999-12-17', SHA2('senhaJuliana',256)),
-    ('Thiago Mendes', 'thiago.mendes@email.com', '1992-01-15', SHA2('senhaThiago', 256)),
-    ('Larissa Nunes', 'larissa.nunes@email.com', '1989-06-20', SHA2('senhaLarissa', 256)),
-    ('Renan Dias', 'renan.dias@email.com', '2003-03-08', SHA2('senhaRenan', 256)),
-    ('Patrícia Lima', 'patricia.lima@email.com', '1997-10-11', SHA2('senhaPatricia', 256)),
-    ('Fábio Souza', 'fabio.souza@email.com', '1984-02-02', SHA2('senhaFabio', 256)),
-    ('Vanessa Araújo', 'vanessa.araujo@email.com', '2000-07-14', SHA2('senhaVanessa', 256)),
-    ('Bruno Teixeira', 'bruno.teixeira@email.com', '1991-12-03', SHA2('senhaBrunoT', 256)),
-    ('Vanessa Araújo', 'vanessa.araujo@email.com', '2000-07-14', SHA2('senhaVanessa', 256));
-
--- Pesquisas respondidas de exemplo (uma por usuário)
-INSERT INTO pesquisa (fkUsuario, r1, r2, r3, r4, r5, r6, r7, r8)
-    VALUES
-    (1, 21, 'Competição', 'Avançado', 'Mais de 10 anos', 'Clássico', 'Allround', 'Mais de três vezes por semana', 'Técnicas'),
-    (2, 12, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Ofensivo', 'Uma vez por semana', 'Equipamentos'),
-    (3, 5, 'Socialização', 'Intermediário', '5 a 10 anos', 'Classineta', 'Ofensivo', 'Duas a três vezes por semana', 'Treinos'),
-    (4, 18, 'Condicionamento físico', 'Intermediário', 'Menos de 1 ano', 'Clássico', 'Ofensivo', 'Menos de uma vez por semana', 'Regras'),
-    (5, 9, 'Competição', 'Profissional', 'Mais de 10 anos', 'Caneta', 'Ofensivo', 'Mais de três vezes por semana', 'Equipamentos'),
-    (6, 1, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Ofensivo', 'Uma vez por semana', 'Outros'),
-    (7, 15, 'Socialização', 'Intermediário', '5 a 10 anos', 'Classineta', 'Defensivo', 'Duas a três vezes por semana', 'Treinos'),
-    (8, 20, 'Condicionamento físico', 'Intermediário', 'Menos de 1 ano', 'Clássico', 'Allround', 'Menos de uma vez por semana', 'Regras'),
-    (9, 23, 'Competição', 'Profissional', 'Mais de 10 anos', 'Caneta', 'Ofensivo', 'Mais de três vezes por semana', 'Técnicas'),
-    (10, 7, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Allround', 'Uma vez por semana', 'Equipamentos'),
-    (11, 7, 'Competição', 'Avançado', 'Mais de 10 anos', 'Clássico', 'Defensivo', 'Mais de três vezes por semana', 'Técnicas'),
-    (12, 12, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Ofensivo', 'Uma vez por semana', 'Equipamentos'),
-    (13, 5, 'Socialização', 'Intermediário', '5 a 10 anos', 'Classineta', 'Allround', 'Duas a três vezes por semana', 'Treinos'),
-    (14, 18, 'Condicionamento físico', 'Intermediário', 'Menos de 1 ano', 'Clássico', 'Allround', 'Menos de uma vez por semana', 'Regras'),
-    (15, 9, 'Competição', 'Profissional', 'Mais de 10 anos', 'Caneta', 'Ofensivo', 'Mais de três vezes por semana', 'Regras'),
-    (16, 1, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Defensivo', 'Uma vez por semana', 'Outros'),
-    (17, 15, 'Socialização', 'Intermediário', '5 a 10 anos', 'Classineta', 'Ofensivo', 'Duas a três vezes por semana', 'Treinos'),
-    (18, 20, 'Condicionamento físico', 'Intermediário', 'Menos de 1 ano', 'Clássico', 'Ofensivo', 'Menos de uma vez por semana', 'Regras'),
-    (19, 24, 'Competição', 'Avançado', 'Mais de 10 anos', 'Clássico', 'Defensivo', 'Mais de três vezes por semana', 'Técnicas'),
-    (20, 24, 'Socialização', 'Intermediário', '5 a 10 anos', 'Classineta', 'Allround', 'Duas a três vezes por semana', 'Treinos'),
-    (21, 24, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Ofensivo', 'Uma vez por semana', 'Equipamentos'),
-    (22, 21, 'Condicionamento físico', 'Intermediário', '1 a 5 anos', 'Clássico', 'Ofensivo', 'Uma vez por semana', 'Outros'),
-    (23, 24, 'Competição', 'Profissional', 'Mais de 10 anos', 'Clássico', 'Defensivo', 'Mais de três vezes por semana', 'Técnicas'),
-    (24, 24, 'Lazer', 'Iniciante', '1 a 5 anos', 'Caneta', 'Ofensivo', 'Uma vez por semana', 'Regras'),
-    (25, 8, 'Socialização', 'Intermediário', '5 a 10 anos', 'Classineta', 'Allround', 'Duas a três vezes por semana', 'Treinos'),
-    (26, 8, 'Lazer', 'Iniciante', 'Menos de 1 ano', 'Caneta', 'Allround', 'Menos de uma vez por semana', 'Outros');
     
 SELECT
         e.nome as regiao, count(*) as total

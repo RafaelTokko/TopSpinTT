@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entre no TopSpinTT</title>
+    <title>Sobre mim - TopSpinTT</title>
     <link rel="stylesheet" href="style/style.css">
-    <link rel="stylesheet" href="style/index.css">
+    <link rel="stylesheet" href="style/sobre.css">
     <link rel="shortcut icon" type="imagex/png" href="./assets/logo/icone.png">
     <script src="./script/sessao.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
-
-
         <nav>
             <div class="logo">
                 <a href="index.html"><img src="assets/logo/logo.png" alt="Logo"></a>
@@ -23,7 +22,6 @@
                         <li><a href="./blog.html">Blog</a></li>
                         <li><a href="./sobre.html">Sobre mim</a></li>
                         <li><a href="./estatisticas.html">Estatísticas</a></li>
-                        
                     </ul>
                 </div>
                 <div id="usuario" class="login-cadastro">
@@ -36,39 +34,15 @@
     </header>
     
     <main>
-        <div class="imagem-banner">
-            <div class="texto-banner">
-                <h2>Seja bem vindo ao TopSpinTT!</h2>
-                <p>O TopSpinTT possui conteúdos de diversos temas sobre Tênis de Mesa, como regras, equipamentos e técnicas!</p>
-                <button onclick="location.href='./blog.html';">Acessar o conteúdo</button>
-            </div>
-        </div>
-        <div class="area-posts">
-            <h1>Conteúdos fundamentais do tênis de mesa!</h1>
-            <div class="posts-banner">
-                <div class="posts regras">
-                    <a href="./post.html?id=1"><img src="./assets/placar.jpg" alt="Placar"></a>
-                    <a href="./post.html?id=1"">Conheça as regras básicas do tênis de mesa</a>
+        <div class="sobre-container">
+            <div class="conteudo">
+                <div class="sobre-texto">
+                    <h1>Sobre mim</h1>
+                    <p>Olá! Meu nome é Rafael Tokko, sou apaixonado por tênis de mesa e tecnologia. Criei o TopSpinTT para compartilhar conhecimento, dicas e curiosidades sobre o esporte, além de ajudar outros jogadores a evoluírem e se conectarem. Aqui você encontra estatísticas, conteúdos técnicos, análises de equipamentos e muito mais. Seja bem-vindo(a) e sinta-se à vontade para explorar, aprender e contribuir com a comunidade!</p>
                 </div>
-                <div class=" posts equipamento">
-                    <a href="./post.html?id=2""><img src="./assets/raquete.jpg" alt="raquete de tênis de mesa"></a>
-                    <a href="./post.html?id=2"">Veja recomendações de equipamentos para o seu nível!</a>
+                <div class="sobre-imagem">
+                    <img src="./assets/rafael.jpeg" alt="Foto do criador" />
                 </div>
-                <div class="posts tecnica">
-                    <a href="./post.html?id=3""><img src="./assets/calderano-forehand.jpg" alt="Forehand do Calderano"></a>
-                    <a href="./post.html?id=3"">Aprenda os movimentos básicos do tênis de mesa</a>
-                </div>
-            </div>
-        </div>
-        <div class="estatisticas-banner">
-            <div class="texto-banner-estatistica">
-                <h2>Descubra mais sobre seu jogo!</h2>
-                <p>Junte-se a nós e responda algumas perguntas rápidas sobre você e seu estilo de jogo. Com base nas suas respostas, vamos te mostrar algumas dicas personalizadas</p>
-                <p>Além disso, as suas respostas também irão ajudar a tornar este site melhor!</p>
-                <button onclick="location.href='./estatisticas.html';">Responder a pesquisa!</button>
-            </div>
-            <div class="imagem-banner-estatistica">
-
             </div>
         </div>
     </main>
@@ -106,8 +80,11 @@
             <p>&copy; 2025 TopSpinTT &mdash; Todos os direitos reservados.</p>
         </div>
     </footer>
+    <style>
+
+    </style>
 </body>
 <script>
-    validarSessao()
+    validarSessao();
 </script>
 </html>

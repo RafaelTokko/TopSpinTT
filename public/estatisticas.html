@@ -22,7 +22,7 @@
                     <ul>
                         <li><a href="./index.html">Home</a></li>
                         <li><a href="./blog.html">Blog</a></li>
-                        <li><a href="./sobremim.html">Sobre mim</a></li>
+                        <li><a href="./sobre.html">Sobre mim</a></li>
                         <li><a href="./estatisticas.html">Estatísticas</a></li>
                     </ul>
                 </div>
@@ -73,16 +73,27 @@
                 </div>
             </div>
             <div class="info-cards">
-                <h2>Nivel dos Jogadores</h2>
+                <h2>Nível dos Jogadores</h2>
                 <div class="conteudo-info">
                     <div class="grafico">
                         <canvas id="nivelGrafico"></canvas>
                     </div>
-                    <div class="texto">
-                        <p>Descubra como os participantes do site se distribuem entre os diferentes níveis de habilidade. Assim, você pode comparar seu progresso com outros jogadores e encontrar conteúdos adequados para o seu momento no tênis de mesa.</p>
-                        <div class="valor" id="valor">
-                            <h3></h3>
-                            <p></p>
+                    <div class="info-kpi">
+                        <div class="card a">
+                            <h3>Nível com mais jogadores:</h3>
+                            <div class="kpi">
+                                <div class="valor">
+                                    <p id="maiorNivel"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3>Nível com menos jogadores:</h3>
+                            <div class="kpi">
+                                <div class="valor">
+                                    <p id="menorNivel"></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -93,11 +104,21 @@
                     <div class="grafico">
                         <canvas id="faixaEtariaGrafico"></canvas>
                     </div>
-                    <div class="texto">
-                        <div class="kpi">
-                            <h2></h2>
-                            <div class="valor" id="valor">
-                              
+                    <div class="info-kpi">
+                        <div class="card a">
+                            <h3>Faixa com mais atletas:</h3>
+                            <div class="kpi">
+                                <div class="valor" id="valor">
+                                    <p id="maiorFaixa"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3>Faixa com menos atletas:</h3>
+                            <div class="kpi">
+                                <div class="valor" id="valor">
+                                    <p id="menorFaixa"></p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -109,8 +130,23 @@
                     <div class="grafico">
                         <canvas id="tiposJogoGrafico"></canvas>
                     </div>
-                    <div class="texto">
-                        <p>Veja como os jogadores do site se distribuem entre os diferentes tipos de jogo (Ofensivo, Defensivo, Allround). Isso pode ajudar você a entender tendências e encontrar dicas específicas para seu tipo!</p>
+                    <div class="info-kpi">
+                        <div class="card a">
+                            <h3>Tipo com mais jogadores:</h3>
+                            <div class="kpi">
+                                <div class="valor">
+                                    <p id="maiorTipo"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3>Tipo com menos jogadores:</h3>
+                            <div class="kpi">
+                                <div class="valor">
+                                    <p id="menorTipo"></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -118,7 +154,37 @@
     </main>
 
     <footer>
-
+        <div class="footer-content novo-footer">
+            <div class="footer-logo">
+                <img src="./assets/logo/logo.png" alt="Logo TopSpinTT" style="height:70px;">
+            </div>
+            <div class="footer-links">
+                <div>
+                    <h4>Site</h4>
+                    <div class="itens">
+                    <a href="./index.html">Home</a>
+                    <a href="./blog.html">Blog</a>
+                    <a href="./sobremim.html">Sobre mim</a>
+                    <a href="./estatisticas.html">Estatísticas</a>
+                    <a href="./pesquisa.html">Pesquisa</a>
+                    </div>
+                </div>
+                <div>
+                    <h4>Área do usuário</h4>
+                    <div class="itens">
+                    <a href="./login.html">Login</a>
+                    <a href="./cadastro.html">Cadastro</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-social">
+                <h4>Contato</h4>
+                <p>Email: topspintt@sptech.school</p>
+            </div>
+        </div>
+        <div class="footer-copy">
+            <p>&copy; 2025 TopSpinTT &mdash; Todos os direitos reservados.</p>
+        </div>
     </footer>
 </body>
 <script>
@@ -160,7 +226,14 @@
             }
         })
         .then(function (dadosNiveis) {
-            niveis = dadosNiveis[0];
+              niveis = dadosNiveis[0];
+                let nivelMax = dadosNiveis[1].Nivel;
+                let valorMax = dadosNiveis[1].total;
+                let nivelMin = dadosNiveis[2].Nivel;
+                let valorMin = dadosNiveis[2].total;
+                maiorNivel.innerHTML = `${nivelMax} (${valorMax})`;
+                menorNivel.innerHTML = `${nivelMin} (${valorMin})`;
+
             if (regiao !== null && niveis !== null && faixaEtaria !== null && tiposJogo !== null) {
                 plotarGrafico({ regiao, niveis, faixaEtaria, tiposJogo });
             }
@@ -179,7 +252,13 @@
             }
         })
         .then(function (dadosFaixaEtaria) {
-            faixaEtaria = dadosFaixaEtaria;
+            faixaEtaria = dadosFaixaEtaria[0];
+                let faixaMax = dadosFaixaEtaria[1].faixaEtaria;
+                let valorFaixaMax = dadosFaixaEtaria[1].total;
+                let faixaMin = dadosFaixaEtaria[2].faixaEtaria;
+                let valorFaixaMin = dadosFaixaEtaria[2].total;
+                maiorFaixa.innerHTML = `${faixaMax} (${valorFaixaMax})`;
+                menorFaixa.innerHTML = `${faixaMin} (${valorFaixaMin})`;
             console.log(`Dados recebidos: ${JSON.stringify({ regiao, niveis, faixaEtaria })}`);
             if (regiao !== null && niveis !== null && faixaEtaria !== null && tiposJogo !== null) {
                 plotarGrafico({ regiao, niveis, faixaEtaria, tiposJogo });
@@ -220,6 +299,12 @@
         })
         .then(function (dadosTiposJogo) {
             tiposJogo = dadosTiposJogo[0];
+                let tipoJogoMax = dadosTiposJogo[1].TipoJogo;
+                let valorMax = dadosTiposJogo[1].total;
+                let tipoJogoMin = dadosTiposJogo[2].TipoJogo;
+                let valorMin = dadosTiposJogo[2].total;
+                maiorTipo.innerHTML = `${tipoJogoMax} (${valorMax})`;
+                menorTipo.innerHTML = `${tipoJogoMin} (${valorMin})`;
             if (regiao !== null && niveis !== null && faixaEtaria !== null && tiposJogo !== null) {
                 plotarGrafico({ regiao, niveis, faixaEtaria, tiposJogo });
             }
@@ -276,7 +361,7 @@ function plotarGrafico(resposta) {
     for (let i = 0; i < niveis.length; i++) {
         var nivel = niveis[i];
         labelNivel.push(nivel.Nivel || nivel.nivel);
-        nivelGrafico.datasets[0].data.push(nivel.total); // valor inteiro
+        nivelGrafico.datasets[0].data.push(nivel.total);
         totalNivel += nivel.total;
     }
 
